@@ -17,7 +17,7 @@ Export Design tokens from your Sketch project. You can export colors, text, spac
 3. Export spacing tokens
 4. Export textstyles
 
-### Export color tokens
+### 1. Export color tokens
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export color tokens`
 
@@ -35,7 +35,7 @@ $grey2: #a9a9a9;
 $grey3: #6f6f6f;
 ```
 
-### Export text tokens
+### 2. Export text tokens
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
 
@@ -43,18 +43,18 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
 
 ```
 {
-	"fontSize": {
-		"xxl": "64px",
-		"xl": "48px",
-		"l": "32px",
-		"m": "24px",
-		"s": "16px",
-		"xs": "12px"
-	}
+    "fontSize": {
+        "xxl": "64px",
+        "xl": "48px",
+        "l": "32px",
+        "m": "24px",
+        "s": "16px",
+        "xs": "12px"
+    }
 }
 ```
 
-### Export spacing tokens
+### 3. Export spacing tokens
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export spacing tokens`
 
@@ -72,11 +72,11 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export spacing toke
 }
 ```
 
-### Export textstyles
+### 4. Export textstyles
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export textstyles`
 
-**Example output (CSS, Relative(rem))**
+**Example output (JavaScript Object, Absolute(px))**
 
 ```
 const textStyles = {
@@ -104,24 +104,33 @@ const textStyles = {
 		letterSpacing: "normal",
 		textTransform: "none",
 	},
-	caption: {
+	title: {
 		fontFamily: "Museo Sans",
-		fontSize: "12px",
-		fontWeight: 500,
-		lineHeight: "18px",
-		letterSpacing: "normal",
-		textTransform: "none",
+		fontSize: "20px",
+		fontWeight: 700,
+		lineHeight: "36px",
+		letterSpacing: "1.5px",
+		textTransform: "uppercase",
 	}
 }
 ```
 
 ## How to install 
 
-Some text
+**Sketch Runner**
 
-## Feedback
+- Trigger Sketch Runner
+- Go to the 'Install' tab
+- Search 'Design Token Exporter' and install
 
-Some text
+**Manual**
+
+- Download the Zip-folder. Extract zip and double-click the `design-token-exporter.sketchplugin`
+
+## Contact or Feedback
+
+Mail [herkko@erhe.fi](mailto:herkko@erhe.fi)
+Twitter [@here_erhe](https://twitter.com/here_erhe)
 
 ## License
 
