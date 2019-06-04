@@ -21,6 +21,20 @@ Export Design tokens from your Sketch project. You can export colors, text, spac
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export color tokens`
 
+**Example output (SCSS, HEX)**
+
+```
+$primary1: #4a90e2;
+$primary2: #336fb4;
+$primary3: #2b619f;
+$secondary1: #c1425a;
+$secondary2: #9d3348;
+$secondary3: #6d2130;
+$grey1: #dadada;
+$grey2: #a9a9a9;
+$grey3: #6f6f6f;
+```
+
 ### Export text tokens
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
