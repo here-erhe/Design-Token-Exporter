@@ -1,0 +1,47 @@
+{
+  "compatibleVersion": 53,
+  "version": "0.5.0",
+  "name": "Design Token Exporter",
+  "identifier": "fi.erhe.design-token-exporter",
+  "description": "Simple Design Token Exporter",
+  "author": "Herkko Huttunen",
+  "icon": "icon.png",
+  "commands": [
+    {
+      "name": "Export colors tokens",
+      "identifier": "tokens.colors",
+      "script": "colorTokens.js",
+      "description": "Export selected layers"
+    },
+    {
+      "name": "Export text tokens",
+      "identifier": "tokens.text",
+      "script": "textTokens.js",
+      "description": "Export selected layers"
+    },
+    {
+      "name": "Export spacing tokens",
+      "identifier": "tokens.spacing",
+      "script": "spacingTokens.js",
+      "description": "Export selected layers"
+    },
+    {
+      "name": "Export textstyles",
+      "identifier": "tokens.styles",
+      "script": "textObjects.js",
+      "description": "Export selected layers"
+    }
+  ],
+  "menu": {
+    "title": "Design Token Exporter",
+    "items": [
+      "tokens.colors",
+      "tokens.text",
+      "tokens.spacing",
+      "-",
+      "tokens.styles"
+    ]
+  },
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com/here-erhe/Design-Token-Exporter/master/.appcast.xml"
+}
