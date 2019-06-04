@@ -39,13 +39,81 @@ $grey3: #6f6f6f;
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
 
+**Example output (JSON, Font size, Absolute(px))**
+
+```
+{
+	"fontSize": {
+		"xxl": "64px",
+		"xl": "48px",
+		"l": "32px",
+		"m": "24px",
+		"s": "16px",
+		"xs": "12px"
+	}
+}
+```
+
 ### Export spacing tokens
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export spacing tokens`
 
+**Example output (CSS, Relative(rem))**
+
+```
+:root {
+   --spacing-xxs: 0.25rem;
+   --spacing-xs: 0.5rem;
+   --spacing-s: 1rem;
+   --spacing-m: 1.5rem;
+   --spacing-l: 3rem;
+   --spacing-xl: 4rem;
+   --spacing-xxl: 8rem;
+}
+```
+
 ### Export textstyles
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export textstyles`
+
+**Example output (CSS, Relative(rem))**
+
+```
+const textStyles = {
+	h1: {
+		fontFamily: "Museo Sans",
+		fontSize: "64px",
+		fontWeight: 300,
+		lineHeight: "64px",
+		letterSpacing: "normal",
+		textTransform: "none",
+	},
+	h2: {
+		fontFamily: "Museo Sans",
+		fontSize: "48px",
+		fontWeight: 300,
+		lineHeight: "48px",
+		letterSpacing: "normal",
+		textTransform: "none",
+	},
+	body: {
+		fontFamily: "Museo Sans",
+		fontSize: "16px",
+		fontWeight: 500,
+		lineHeight: "24px",
+		letterSpacing: "normal",
+		textTransform: "none",
+	},
+	caption: {
+		fontFamily: "Museo Sans",
+		fontSize: "12px",
+		fontWeight: 500,
+		lineHeight: "18px",
+		letterSpacing: "normal",
+		textTransform: "none",
+	}
+}
+```
 
 ## How to install 
 
