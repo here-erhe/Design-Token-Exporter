@@ -21,6 +21,8 @@ Export Design tokens from your Sketch project. You can export colors, text, spac
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export color tokens`
 
+![alt text](images/colors.gif)
+
 **Example output (SCSS, HEX)**
 
 ```
@@ -127,7 +129,7 @@ const textStyles = {
 
 - Download the Zip-folder. Extract zip and double-click the `design-token-exporter.sketchplugin`
 
-## Contact or Feedback
+## Contact/Feedback
 
 Mail [herkko@erhe.fi](mailto:herkko@erhe.fi)
 Twitter [@here_erhe](https://twitter.com/here_erhe)
