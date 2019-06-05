@@ -17554,7 +17554,8 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, format, n
 
   if (savePanel.runModal() && selectedCount !== 0) {
     var variables = {};
-    selectedLayers.forEach(function (layer, i) {
+
+    lodash__WEBPACK_IMPORTED_MODULE_1___default.a.forEach(selectedLayers, function (layer) {
       var layerName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_4__["default"])(layer, naming);
       var fontFamily = layer.style.fontFamily;
       var fontSize = units == 'Absolute (px)' ? layer.style.fontSize + 'px' : layer.style.fontSize / 16 + 'rem';
@@ -17567,6 +17568,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, format, n
       if (format == 'Line Height') variables[layerName] = lineHeight;
       if (format == 'Letter Spacing') variables[layerName] = letterSpacing;
     });
+
     var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_3__["default"])(variables, type, format));
     var file_path = savePanel.URL().path();
     file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
@@ -17599,7 +17601,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, format, n
       exportTextstyles(selectedLayers, exportType, exportFormat, exportNaming, exportUnits);
     }
   } else {
-    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Please select layers first!');
+    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.alert('Select layers', 'Please select text layers first.');
   }
 });
 

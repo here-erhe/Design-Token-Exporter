@@ -17554,12 +17554,14 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, format, n
 
   if (savePanel.runModal() && selectedCount !== 0) {
     var variables = {};
-    selectedLayers.forEach(function (layer, i) {
+
+    lodash__WEBPACK_IMPORTED_MODULE_1___default.a.forEach(selectedLayers, function (layer) {
       var layerName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_4__["default"])(layer, naming);
       var side = format == 'Width' ? layer.frame.width : layer.frame.height;
       var space = units == 'Absolute (px)' ? side + 'px' : side / 16 + 'rem';
       variables[layerName] = space;
     });
+
     var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_3__["default"])(variables, type, 'spacing'));
     var file_path = savePanel.URL().path();
     file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
@@ -17592,7 +17594,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, format, n
       exportTextstyles(selectedLayers, exportType, exportFormat, exportNaming, exportUnits);
     }
   } else {
-    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Please select layers first!');
+    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.alert('Select layers', 'Please select shape layers first.');
   }
 });
 

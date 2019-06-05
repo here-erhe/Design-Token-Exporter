@@ -23,9 +23,9 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export color tokens
 
 ![alt text](images/colors.gif)
 
-**Example output (SCSS, HEX)**
+**Example output - colors.scss (SCSS, HEX)**
 
-```
+```scss
 $primary1: #4a90e2;
 $primary2: #336fb4;
 $primary3: #2b619f;
@@ -41,9 +41,9 @@ $grey3: #6f6f6f;
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
 
-**Example output (JSON, Font size, Absolute(px))**
+**Example output - fontsize.json (JSON, Font size, Absolute(px))**
 
-```
+```json
 {
     "fontSize": {
         "xxl": "64px",
@@ -60,9 +60,9 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export spacing tokens`
 
-**Example output (CSS, Relative(rem))**
+**Example output - spacing.css (CSS, Relative(rem))**
 
-```
+```css
 :root {
    --spacing-xxs: 0.25rem;
    --spacing-xs: 0.5rem;
@@ -78,9 +78,9 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export spacing toke
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export textstyles`
 
-**Example output (JavaScript Object, Absolute(px))**
+**Example output - textstyles.js (JavaScript Object, Absolute(px))**
 
-```
+```js
 const textStyles = {
 	h1: {
 		fontFamily: "Museo Sans",

@@ -17332,25 +17332,36 @@ var dialogBox = function dialogBox(selectedLayers) {
 
 var exportColors = function exportColors(selectedLayers, type, format, naming) {
   var selectedCount = selectedLayers.length;
-  var fileTypes = NSArray.arrayWithArray([_lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype, nil]);
-  var savePanel = NSSavePanel.savePanel();
-  savePanel.setCanChooseDirectories(true);
-  savePanel.setCanCreateDirectories(true);
-  savePanel.setAllowedFileTypes(fileTypes);
-  savePanel.setNameFieldStringValue('colors.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
-  savePanel.setPrompt("Save Color Tokens");
 
-  if (savePanel.runModal() && selectedCount !== 0) {
+  if (selectedCount !== 0) {
     var variables = {};
-    selectedLayers.forEach(function (layer, i) {
-      var colorName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_5__["default"])(layer, naming);
-      var colorFill = format == 'HEX' ? layer.style.fills[0].color.substr(0, 7) : Object(_lib_hexAToRGBA__WEBPACK_IMPORTED_MODULE_3__["default"])(layer.style.fills[0].color);
-      variables[colorName] = colorFill;
+
+    lodash__WEBPACK_IMPORTED_MODULE_1___default.a.forEach(selectedLayers, function (layer) {
+      var fillArray = layer.style.fills;
+
+      if (lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(fillArray) != 0 && lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).fillType == 'Color' && lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).enabled) {
+        var colorName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_5__["default"])(layer, naming);
+        var colorFill = format == 'HEX' ? lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).color.substr(0, 7) : Object(_lib_hexAToRGBA__WEBPACK_IMPORTED_MODULE_3__["default"])(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).color);
+        variables[colorName] = colorFill;
+      }
     });
-    var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_4__["default"])(variables, type, 'colors'));
-    var file_path = savePanel.URL().path();
-    file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
-    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Color Tokens Exported!');
+
+    if (lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(variables) == 0) {
+      sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.alert('Select layers', 'Select shape layers with solid fill color');
+    } else {
+      var fileTypes = NSArray.arrayWithArray([_lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype, nil]);
+      var savePanel = NSSavePanel.savePanel();
+      savePanel.setCanChooseDirectories(true);
+      savePanel.setCanCreateDirectories(true);
+      savePanel.setAllowedFileTypes(fileTypes);
+      savePanel.setNameFieldStringValue('colors.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
+      savePanel.setPrompt("Save Color Tokens");
+      savePanel.runModal();
+      var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_4__["default"])(variables, type, 'colors'));
+      var file_path = savePanel.URL().path();
+      file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
+      sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Color Tokens Exported!');
+    }
   }
 };
 /**
@@ -17378,7 +17389,7 @@ var exportColors = function exportColors(selectedLayers, type, format, naming) {
       exportColors(selectedLayers, exportType, exportFormat, exportNaming);
     }
   } else {
-    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Please select layers first!');
+    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.alert('Select layers', 'Please select shape layers first.');
   }
 });
 
@@ -17518,7 +17529,7 @@ var hexAToRGBA = function hexAToRGBA(h) {
     a = "0x" + h[7] + h[8];
   }
 
-  a = +(a / 255).toFixed(3);
+  a = +(a / 255).toFixed(2);
   return "rgba(" + +r + "," + +g + "," + +b + "," + a + ")";
 };
 

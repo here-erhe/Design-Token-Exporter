@@ -66,37 +66,50 @@ const dialogBox = (selectedLayers) => {
  */
 const exportColors = (selectedLayers, type, format, naming) => {
 
-
   const selectedCount = selectedLayers.length;
 
-  let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
-
-  let savePanel = NSSavePanel.savePanel()
-  savePanel.setCanChooseDirectories(true)
-  savePanel.setCanCreateDirectories(true)
-  savePanel.setAllowedFileTypes(fileTypes)
-
-  savePanel.setNameFieldStringValue('colors.' + values[type].filetype)
-  savePanel.setPrompt("Save Color Tokens");
-
-  if (savePanel.runModal() && selectedCount !== 0) {
+  if (selectedCount !== 0) {
 
     let variables = {}
 
-    selectedLayers.forEach(function (layer, i) {
+    _.forEach(selectedLayers, function (layer) {
 
-      let colorName = varNaming(layer, naming);
-      let colorFill = format == 'HEX' ? layer.style.fills[0].color.substr(0, 7) : hexAToRGBA(layer.style.fills[0].color);
+      let fillArray = layer.style.fills;
 
-      variables[colorName]  = colorFill
+      if(_.size(fillArray) != 0 && _.last(fillArray).fillType == 'Color' && _.last(fillArray).enabled){
+
+        let colorName = varNaming(layer, naming);
+        let colorFill = format == 'HEX' ? _.last(fillArray).color.substr(0, 7) : hexAToRGBA(_.last(fillArray).color);
+        variables[colorName]  = colorFill
+        
+      }
 
     })
+    
+    if(_.size(variables) == 0){
+      sketch.UI.alert('Select layers','Select shape layers with solid fill color');
+    }else{
 
-    let file = NSString.stringWithString(formatObject(variables, type, 'colors'));
-    let file_path = savePanel.URL().path();
-    file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
+      let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
 
-    sketch.UI.message('Color Tokens Exported!');
+      let savePanel = NSSavePanel.savePanel()
+      savePanel.setCanChooseDirectories(true)
+      savePanel.setCanCreateDirectories(true)
+      savePanel.setAllowedFileTypes(fileTypes)
+    
+      savePanel.setNameFieldStringValue('colors.' + values[type].filetype)
+      savePanel.setPrompt("Save Color Tokens");
+
+      savePanel.runModal();
+
+      let file = NSString.stringWithString(formatObject(variables, type, 'colors'));
+      let file_path = savePanel.URL().path();
+      file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
+
+      sketch.UI.message('Color Tokens Exported!');
+    }
+
+    
    }
 
 }
@@ -128,11 +141,7 @@ export default () => {
     }
 
   }else{
-    sketch.UI.message('Please select layers first!');
+    sketch.UI.alert('Select layers','Please select shape layers first.');
   }
 
 }
-
-
-
-

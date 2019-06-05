@@ -88,7 +88,7 @@ const exportTextstyles = (selectedLayers, type, format, naming, units) => {
 
     let variables = {}
     
-    selectedLayers.forEach(function (layer, i) {
+    _.forEach(selectedLayers, function (layer) {
 
       
         let layerName = varNaming(layer, naming);
@@ -140,7 +140,7 @@ export default () => {
     }
 
   }else{
-    sketch.UI.message('Please select layers first!');
+    sketch.UI.alert('Select layers','Please select shape layers first.');
   }
 
 }

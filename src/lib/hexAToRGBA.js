@@ -13,7 +13,7 @@ const hexAToRGBA = (h) => {
       b = "0x" + h[5] + h[6];
       a = "0x" + h[7] + h[8];
     }
-    a = +(a / 255).toFixed(3);
+    a = +(a / 255).toFixed(2);
   
     return "rgba(" + +r + "," + +g + "," + +b + "," + a + ")";
 }
