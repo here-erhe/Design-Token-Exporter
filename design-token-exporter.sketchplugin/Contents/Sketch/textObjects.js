@@ -17342,7 +17342,7 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
 __webpack_require__.r(__webpack_exports__);
 var values = {
   'JavaScript Object': {
-    lineStart: "const colors = {\n",
+    lineStart: "",
     prefix: "   ",
     diviner: ": '",
     postfix: "',\n",
@@ -17463,7 +17463,7 @@ var dropdownNames;
  */
 
 var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["dialogAlert"])("Export color tokens"); // Creating the view
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["dialogAlert"])("Export text styles"); // Creating the view
 
   var viewWidth = 300;
   var viewHeight = 180;
@@ -17500,7 +17500,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
   savePanel.setCanCreateDirectories(true);
   savePanel.setAllowedFileTypes(fileTypes);
   savePanel.setNameFieldStringValue('textstyles.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
-  savePanel.setPrompt("Save Text Tokens");
+  savePanel.setPrompt("Save Text Styles");
 
   if (savePanel.runModal() && selectedCount !== 0) {
     var texts = '';
@@ -17570,7 +17570,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
 
     var file_path = savePanel.URL().path();
     file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
-    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Text Tokens Exported!');
+    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Text Styles Exported!');
   }
 };
 /**

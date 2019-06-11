@@ -44,24 +44,29 @@ $grey4: #37474f;
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
 
+![alt text](images/fontsize.gif)
+
 **Example output - fontsize.json (JSON, Font size, Absolute(px))**
 
 ```json
 {
-    "fontSize": {
-        "xxl": "64px",
-        "xl": "48px",
-        "l": "32px",
-        "m": "24px",
-        "s": "16px",
-        "xs": "12px"
-    }
+	"fontSize": {
+		"xxl": "64px",
+		"xl": "48px",
+		"l": "32px",
+		"m": "24px",
+		"s": "20px",
+		"xs": "16px",
+		"xxs": "12px"
+	}
 }
 ```
 
 ### 3. Export spacing tokens
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export spacing tokens`
+
+![alt text](images/spacing.gif)
 
 **Example output - spacing.css (CSS, Relative(rem))**
 
@@ -80,6 +85,8 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export spacing toke
 ### 4. Export textstyles
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export textstyles`
+
+![alt text](images/textstyles.gif)
 
 **Example output - textstyles.js (JavaScript Object, Absolute(px))**
 
@@ -101,11 +108,19 @@ const textStyles = {
 		letterSpacing: "normal",
 		textTransform: "none",
 	},
-	body: {
+	h3: {
 		fontFamily: "Museo Sans",
-		fontSize: "16px",
+		fontSize: "32px",
+		fontWeight: 300,
+		lineHeight: "48px",
+		letterSpacing: "normal",
+		textTransform: "none",
+	},
+	h4: {
+		fontFamily: "Museo Sans",
+		fontSize: "24px",
 		fontWeight: 500,
-		lineHeight: "24px",
+		lineHeight: "36px",
 		letterSpacing: "normal",
 		textTransform: "none",
 	},
@@ -116,7 +131,23 @@ const textStyles = {
 		lineHeight: "36px",
 		letterSpacing: "1.5px",
 		textTransform: "uppercase",
-	}
+	},
+	body: {
+		fontFamily: "Museo Sans",
+		fontSize: "16px",
+		fontWeight: 500,
+		lineHeight: "24px",
+		letterSpacing: "normal",
+		textTransform: "none",
+	},
+	caption: {
+		fontFamily: "Museo Sans",
+		fontSize: "12px",
+		fontWeight: 500,
+		lineHeight: "18px",
+		letterSpacing: "normal",
+		textTransform: "none",
+	},
 }
 ```
 

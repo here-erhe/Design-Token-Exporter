@@ -20,7 +20,7 @@ import {dialogAlert,fieldLabel, fieldSelect} from './lib/dialogFields'
  */
 const dialogBox = (selectedLayers) => {
 
-  let alert = dialogAlert("Export color tokens");
+  let alert = dialogAlert("Export text tokens");
 
   // Creating the view
   let viewWidth = 300;

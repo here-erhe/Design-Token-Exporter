@@ -17,7 +17,7 @@ let dropdownNames;
  */
 const dialogBox = (selectedLayers) => {
 
-  let alert = dialogAlert("Export color tokens");
+  let alert = dialogAlert("Export text styles");
 
   // Creating the view
   let viewWidth = 300;
@@ -73,7 +73,7 @@ const exportTextstyles = (selectedLayers, type, units, naming) => {
   savePanel.setAllowedFileTypes(fileTypes)
 
   savePanel.setNameFieldStringValue('textstyles.' + values[type].filetype)
-  savePanel.setPrompt("Save Text Tokens");
+  savePanel.setPrompt("Save Text Styles");
 
   if (savePanel.runModal() && selectedCount !== 0) {
 
@@ -155,7 +155,7 @@ const exportTextstyles = (selectedLayers, type, units, naming) => {
     let file_path = savePanel.URL().path();
     file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
 
-    sketch.UI.message('Text Tokens Exported!');
+    sketch.UI.message('Text Styles Exported!');
    }
 
 }

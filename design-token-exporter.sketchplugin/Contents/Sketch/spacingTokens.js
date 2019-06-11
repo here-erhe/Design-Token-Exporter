@@ -17354,7 +17354,6 @@ var formatObject = function formatObject(obj, type, jsonTitle) {
     jsonObj[lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle)] = obj;
     string = JSON.stringify(jsonObj, null, "\t");
   } else {
-    //if(type == 'JavaScript Object' && jsonTitle == 'spacing'){
     if (type == 'JavaScript Object') {
       string = "const " + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + " = {\n";
     } else {
@@ -17385,7 +17384,7 @@ var formatObject = function formatObject(obj, type, jsonTitle) {
 __webpack_require__.r(__webpack_exports__);
 var values = {
   'JavaScript Object': {
-    lineStart: "const colors = {\n",
+    lineStart: "",
     prefix: "   ",
     diviner: ": '",
     postfix: "',\n",
