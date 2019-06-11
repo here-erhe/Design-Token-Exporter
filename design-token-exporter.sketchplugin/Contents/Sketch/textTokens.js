@@ -17354,8 +17354,9 @@ var formatObject = function formatObject(obj, type, jsonTitle) {
     jsonObj[lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle)] = obj;
     string = JSON.stringify(jsonObj, null, "\t");
   } else {
-    if (type == 'JavaScript Object' && jsonTitle == 'spacing') {
-      string = "const spacing = {\n";
+    //if(type == 'JavaScript Object' && jsonTitle == 'spacing'){
+    if (type == 'JavaScript Object') {
+      string = "const " + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + " = {\n";
     } else {
       string = _values__WEBPACK_IMPORTED_MODULE_1__["default"][type].lineStart;
     }

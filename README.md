@@ -26,15 +26,18 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export color tokens
 **Example output - colors.scss (SCSS, HEX)**
 
 ```scss
-$primary1: #4a90e2;
-$primary2: #336fb4;
-$primary3: #2b619f;
-$secondary1: #c1425a;
-$secondary2: #9d3348;
-$secondary3: #6d2130;
-$grey1: #dadada;
-$grey2: #a9a9a9;
-$grey3: #6f6f6f;
+$primary1: #b39ddb;
+$primary2: #673ab7;
+$primary3: #512da8;
+$primary4: #311b92;
+$secondary1: #b2dfdb;
+$secondary2: #4db6ac;
+$secondary3: #009688;
+$secondary4: #00796b;
+$grey1: #cfd8dc;
+$grey2: #90a4ae;
+$grey3: #607d8b;
+$grey4: #37474f;
 ```
 
 ### 2. Export text tokens

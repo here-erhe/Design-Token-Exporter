@@ -14,8 +14,8 @@ const formatObject = (obj, type, jsonTitle) => {
 
     }else{
 
-        if(type == 'JavaScript Object' && jsonTitle == 'spacing'){
-            string = "const spacing = {\n";
+        if(type == 'JavaScript Object'){
+            string = "const " + _.camelCase(jsonTitle) + " = {\n";
         }else{
             string = values[type].lineStart;
         }

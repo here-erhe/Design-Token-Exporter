@@ -1,6 +1,6 @@
 const values = {
     'JavaScript Object': {
-      lineStart: "const colors = {\n",
+      lineStart: "",
       prefix:  "   ",
       diviner: ": '",
       postfix: "',\n",
