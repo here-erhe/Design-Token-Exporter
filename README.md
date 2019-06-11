@@ -17,7 +17,7 @@ Export Design tokens from your Sketch project. You can export colors, text, spac
 3. Export Spacing Tokens
 4. Export Text Styles
 
-### 1. Export color tokens
+### 1. Export Color Tokens
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export Color Tokens`
 
