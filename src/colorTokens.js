@@ -20,7 +20,7 @@ let dropdownNames;
  */
 const dialogBox = (selectedLayers) => {
 
-  let alert = dialogAlert("Export color tokens");
+  let alert = dialogAlert("Export Color Tokens");
 
   // Creating the view
   

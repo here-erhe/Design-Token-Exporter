@@ -17,7 +17,7 @@ let dropdownNames;
  */
 const dialogBox = (selectedLayers) => {
 
-  let alert = dialogAlert("Export text styles");
+  let alert = dialogAlert("Export Text Styles");
 
   // Creating the view
   let viewWidth = 300;

@@ -17463,7 +17463,7 @@ var dropdownNames;
  */
 
 var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["dialogAlert"])("Export text styles"); // Creating the view
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["dialogAlert"])("Export Text Styles"); // Creating the view
 
   var viewWidth = 300;
   var viewHeight = 180;

@@ -17508,7 +17508,7 @@ var dropdownUnits;
  */
 
 var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["dialogAlert"])("Export spacing tokens"); // Creating the view
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["dialogAlert"])("Export Spacing Tokens"); // Creating the view
 
   var viewWidth = 300;
   var viewHeight = 225;

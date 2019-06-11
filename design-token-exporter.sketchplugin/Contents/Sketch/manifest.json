@@ -8,25 +8,25 @@
   "icon": "icon.png",
   "commands": [
     {
-      "name": "Export colors tokens",
+      "name": "Export Colors Tokens",
       "identifier": "tokens.colors",
       "script": "colorTokens.js",
       "description": "Export selected layers"
     },
     {
-      "name": "Export text tokens",
+      "name": "Export Text Tokens",
       "identifier": "tokens.text",
       "script": "textTokens.js",
       "description": "Export selected layers"
     },
     {
-      "name": "Export spacing tokens",
+      "name": "Export Spacing Tokens",
       "identifier": "tokens.spacing",
       "script": "spacingTokens.js",
       "description": "Export selected layers"
     },
     {
-      "name": "Export textstyles",
+      "name": "Export Text Styles",
       "identifier": "tokens.styles",
       "script": "textObjects.js",
       "description": "Export selected layers"

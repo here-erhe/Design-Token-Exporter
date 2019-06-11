@@ -12,14 +12,14 @@ Export Design tokens from your Sketch project. You can export colors, text, spac
 
 ## Features 
 
-1. Export color tokens
-2. Export text tokens
-3. Export spacing tokens
-4. Export textstyles
+1. Export Color Tokens
+2. Export Text Tokens
+3. Export Spacing Tokens
+4. Export Text Styles
 
 ### 1. Export color tokens
 
-Select layers and go to `Plugins -> Design Token Exporter -> Export color tokens`
+Select layers and go to `Plugins -> Design Token Exporter -> Export Color Tokens`
 
 ![alt text](images/colors.gif)
 
@@ -40,9 +40,9 @@ $grey3: #607d8b;
 $grey4: #37474f;
 ```
 
-### 2. Export text tokens
+### 2. Export Text Tokens
 
-Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
+Select layers and go to `Plugins -> Design Token Exporter -> Export Text Tokens`
 
 ![alt text](images/fontsize.gif)
 
@@ -62,9 +62,9 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export text tokens`
 }
 ```
 
-### 3. Export spacing tokens
+### 3. Export Spacing Tokens
 
-Select layers and go to `Plugins -> Design Token Exporter -> Export spacing tokens`
+Select layers and go to `Plugins -> Design Token Exporter -> Export Spacing Tokens`
 
 ![alt text](images/spacing.gif)
 
@@ -82,9 +82,9 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export spacing toke
 }
 ```
 
-### 4. Export textstyles
+### 4. Export Text Styles
 
-Select layers and go to `Plugins -> Design Token Exporter -> Export textstyles`
+Select layers and go to `Plugins -> Design Token Exporter -> Export Text Styles`
 
 ![alt text](images/textstyles.gif)
 

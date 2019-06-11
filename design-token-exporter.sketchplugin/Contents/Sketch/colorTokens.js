@@ -17301,7 +17301,7 @@ var dropdownNames;
  */
 
 var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["dialogAlert"])("Export color tokens"); // Creating the view
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["dialogAlert"])("Export Color Tokens"); // Creating the view
 
   var viewWidth = 300;
   var viewHeight = 180;

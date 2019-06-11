@@ -19,7 +19,7 @@ let dropdownUnits;
  */
 const dialogBox = (selectedLayers) => {
 
-  let alert = dialogAlert("Export spacing tokens");
+  let alert = dialogAlert("Export Spacing Tokens");
 
   // Creating the view
   let viewWidth = 300;
