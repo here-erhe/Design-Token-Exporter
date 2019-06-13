@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-export const dialogAlert = (title, desc = "Choose which format you want export tokens.") => {
+export const dialogAlert = (title, desc = "Choose which format you want to export tokens.") => {
 
   let alert = COSAlertWindow.new();
 

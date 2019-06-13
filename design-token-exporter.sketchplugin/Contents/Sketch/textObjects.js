@@ -17282,7 +17282,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
 var dialogAlert = function dialogAlert(title) {
-  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Choose which format you want export tokens.";
+  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Choose which format you want to export tokens.";
   var alert = COSAlertWindow.new();
   alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
   alert.setMessageText(title);
