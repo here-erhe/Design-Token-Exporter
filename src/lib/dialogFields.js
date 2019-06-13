@@ -14,7 +14,6 @@ export const dialogAlert = (title, desc = "Choose which format you want export t
 
 }
 
-
 export const fieldLabel = (pos, title, viewWidth, viewHeight) => {
 
   let label = NSTextField.alloc().initWithFrame(NSMakeRect(0,viewHeight - pos,viewWidth,35));
@@ -27,7 +26,6 @@ export const fieldLabel = (pos, title, viewWidth, viewHeight) => {
   return label;
 
 }
-
 
 export const fieldSelect = (pos, values, viewWidth, viewHeight, namingSelect = false) => {
 

@@ -2,10 +2,10 @@
 
 # Design Token Exporter
 
-Export Design tokens from your Sketch project. You can export colors, text, spacing tokens and text style objects. 
+Export Design tokens from your Sketch project. You can export colors, text, spacing tokens and text styles. 
 
-- You can choose fileformat: SCSS, CSS, LESS, JSON, JavaScript (Object/Variables)
-- You can choose colorformat: HEX or RGBA
+- You can choose file format: SCSS, CSS, LESS, JSON, JavaScript (Object/Variables)
+- You can choose color format: HEX or RGBA
 - You can choose text tokens: font family, font size, font weight, line height or letter spacing 
 - You can choose units: Absolute (px) or Relative (rem)
 - You can choose naming (kebab-case, camelCase or part of layer name)
@@ -153,19 +153,12 @@ const textStyles = {
 
 ## How to install 
 
-**Sketch Runner**
-
-- Trigger Sketch Runner
-- Go to the 'Install' tab
-- Search 'Design Token Exporter' and install
-
-**Manual**
-
 - Download the Zip-folder. Extract zip and double-click the `design-token-exporter.sketchplugin`
 
 ## Contact/Feedback
 
 Mail [herkko@erhe.fi](mailto:herkko@erhe.fi)
+
 Twitter [@here_erhe](https://twitter.com/here_erhe)
 
 ## License

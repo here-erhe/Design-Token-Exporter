@@ -1,11 +1,12 @@
 {
-  "compatibleVersion": 53,
   "version": "0.5.0",
   "name": "Design Token Exporter",
   "identifier": "fi.erhe.design-token-exporter",
   "description": "Simple Design Token Exporter",
+  "homepage": "https://github.com/here-erhe/Design-Token-Exporter",
   "author": "Herkko Huttunen",
   "icon": "icon.png", 
+  "compatibleVersion": "54.0",
   "commands": [
     {
       "name": "Export Colors Tokens",
