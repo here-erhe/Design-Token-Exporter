@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <item>
+      <enclosure url="https://github.com/here-erhe/Design-Token-Exporter/releases/download/v0.6.0/design-token-exporter.sketchplugin.zip" sparkle:version="0.6.0"/>
+    </item>
+  </channel>
+</rss>
