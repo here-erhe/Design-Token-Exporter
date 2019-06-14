@@ -2,14 +2,14 @@
   "name": "design-token-exporter",
   "description": "Simple Design Token Exporter",
   "author": "Herkko Huttunen",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/here-erhe/Design-Token-Exporter"
   },
   "engines": {
-    "sketch": ">=51.0" 
+    "sketch": ">=51.0"
   },
   "skpm": {
     "name": "Design Token Exporter",
