@@ -153,7 +153,7 @@ const textStyles = {
 
 ## How to install 
 
-- Download the Zip-folder. Extract zip and double-click the `design-token-exporter.sketchplugin`
+- Download the [Zip-folder](https://github.com/here-erhe/Design-Token-Exporter/releases/latest). Extract zip and double-click the `design-token-exporter.sketchplugin`
 
 ## Contact/Feedback
 
