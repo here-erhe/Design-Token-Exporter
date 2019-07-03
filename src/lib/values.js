@@ -1,8 +1,8 @@
 const values = {
     'JavaScript Object': {
       lineStart: "",
-      prefix:  "   ",
-      diviner: ": '",
+      prefix:  "   '",
+      diviner: "': '",
       postfix: "',\n",
       lineEnd: "}",
       filetype: "js",

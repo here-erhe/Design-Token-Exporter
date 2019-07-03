@@ -115,7 +115,7 @@ const exportTextstyles = (selectedLayers, type, units, naming) => {
       }else if(type == 'JavaScript Object'){
         // JS Object
 
-        texts = texts.concat('\t' + layerName + ': {\n');
+        texts = texts.concat('\t"' + layerName + '": {\n');
           texts = texts.concat('\t\tfontFamily: "' + fontFamily +'",\n');
           texts = texts.concat('\t\tfontSize: "' + fontSize +'",\n');
           texts = texts.concat('\t\tfontWeight: ' + fontWeight +',\n');

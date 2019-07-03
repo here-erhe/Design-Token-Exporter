@@ -17309,16 +17309,18 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
       return layer.name;
     });
     var sliceArr = layerNames[0].split('/');
-    var kebabCase = sliceArr.join('-').toLowerCase().replace(/ /g, '');
+    var kebabCase = sliceArr.join('-').toLowerCase().replace(/ /g, '').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
 
     var camelCase = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(sliceArr, '-'));
 
     select.addItemWithTitle(kebabCase);
     select.addItemWithTitle(camelCase);
 
-    lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(sliceArr, function (slice) {
-      select.addItemWithTitle(slice.toLowerCase().replace(/ /g, ''));
-    });
+    if (sliceArr.length > 1) {
+      lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(sliceArr, function (slice) {
+        select.addItemWithTitle(slice.toLowerCase().replace(/ /g, ''));
+      });
+    }
   } else {
     lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(values, function (value) {
       select.addItemWithTitle(value);
@@ -17343,8 +17345,8 @@ __webpack_require__.r(__webpack_exports__);
 var values = {
   'JavaScript Object': {
     lineStart: "",
-    prefix: "   ",
-    diviner: ": '",
+    prefix: "   '",
+    diviner: "': '",
     postfix: "',\n",
     lineEnd: "}",
     filetype: "js"
@@ -17412,7 +17414,7 @@ var varNaming = function varNaming(layer, naming) {
   var layerName = '';
 
   if (naming == 0) {
-    layerName = layerNameArr.join('-').toLowerCase().replace(/ /g, '');
+    layerName = layerNameArr.join('-').toLowerCase().replace(/ /g, '').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
   } else if (naming == 1) {
     layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(layerNameArr, '-'));
   } else {
@@ -17533,7 +17535,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
         };
       } else if (type == 'JavaScript Object') {
         // JS Object
-        texts = texts.concat('\t' + layerName + ': {\n');
+        texts = texts.concat('\t"' + layerName + '": {\n');
         texts = texts.concat('\t\tfontFamily: "' + fontFamily + '",\n');
         texts = texts.concat('\t\tfontSize: "' + fontSize + '",\n');
         texts = texts.concat('\t\tfontWeight: ' + fontWeight + ',\n');

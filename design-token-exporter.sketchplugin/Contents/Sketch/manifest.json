@@ -42,7 +42,7 @@
       "tokens.styles"
     ]
   },
-  "version": "0.6.0",
+  "version": "0.6.1",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com/here-erhe/Design-Token-Exporter/master/.appcast.xml"
 }

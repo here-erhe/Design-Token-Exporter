@@ -31,20 +31,24 @@ export const fieldSelect = (pos, values, viewWidth, viewHeight, namingSelect = f
 
   let select = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - pos, viewWidth, 22));
 
-  if(namingSelect){
+  if(namingSelect){ 
 
     const layerNames = values.map(layer => layer.name);
     const sliceArr = layerNames[0].split('/');
 
-    let kebabCase = sliceArr.join('-').toLowerCase().replace(/ /g, '');
+    let kebabCase = sliceArr.join('-').toLowerCase().replace(/ /g, '').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
     let camelCase = _.camelCase(_.join(sliceArr, '-'));
 
     select.addItemWithTitle(kebabCase);
     select.addItemWithTitle(camelCase);
 
-    _.forEach(sliceArr,function (slice) {
-      select.addItemWithTitle(slice.toLowerCase().replace(/ /g, ''));
-    });
+    if(sliceArr.length > 1){
+
+      _.forEach(sliceArr,function (slice) {
+        select.addItemWithTitle(slice.toLowerCase().replace(/ /g, ''));
+      });
+
+    }
 
   }else{
 

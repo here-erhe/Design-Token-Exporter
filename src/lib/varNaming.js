@@ -6,7 +6,7 @@ const varNaming = (layer, naming) => {
     let layerName = '';
 
     if(naming == 0){ 
-        layerName = layerNameArr.join('-').toLowerCase().replace(/ /g, '');
+        layerName = layerNameArr.join('-').toLowerCase().replace(/ /g, '').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
     }else if(naming == 1){ 
         layerName =  _.camelCase(_.join(layerNameArr, '-'));
     }else{
