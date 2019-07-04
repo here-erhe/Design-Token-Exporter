@@ -36,7 +36,7 @@ export const fieldSelect = (pos, values, viewWidth, viewHeight, namingSelect = f
     const layerNames = values.map(layer => layer.name);
     const sliceArr = layerNames[0].split('/');
 
-    let kebabCase = sliceArr.join('-').toLowerCase().replace(/ /g, '').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    let kebabCase = _.kebabCase(sliceArr);
     let camelCase = _.camelCase(_.join(sliceArr, '-'));
 
     select.addItemWithTitle(kebabCase);

@@ -17438,7 +17438,8 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
       return layer.name;
     });
     var sliceArr = layerNames[0].split('/');
-    var kebabCase = sliceArr.join('-').toLowerCase().replace(/ /g, '').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+
+    var kebabCase = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.kebabCase(sliceArr);
 
     var camelCase = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(sliceArr, '-'));
 
@@ -17620,7 +17621,7 @@ var varNaming = function varNaming(layer, naming) {
   var layerName = '';
 
   if (naming == 0) {
-    layerName = layerNameArr.join('-').toLowerCase().replace(/ /g, '').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.kebabCase(layerNameArr);
   } else if (naming == 1) {
     layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(layerNameArr, '-'));
   } else {
