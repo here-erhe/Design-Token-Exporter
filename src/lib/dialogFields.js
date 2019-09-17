@@ -64,3 +64,19 @@ export const fieldSelect = (pos, values, viewWidth, viewHeight, namingSelect = f
   return select;
 
 }
+
+
+export const fieldCheckbox = (pos, label, viewWidth, viewHeight, state = false) => {
+
+  let checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - pos, viewWidth, 20));
+
+  let initState = state ? NSOnState : NSOffState;
+
+  checkbox.setButtonType(NSSwitchButton);
+  checkbox.setBezelStyle(0);
+  checkbox.setTitle(label);
+  checkbox.setState(initState);
+
+  return checkbox;
+
+}

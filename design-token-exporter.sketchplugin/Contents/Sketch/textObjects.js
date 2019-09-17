@@ -17275,7 +17275,7 @@ module.exports = function(module) {
 /*!*********************************!*\
   !*** ./src/lib/dialogFields.js ***!
   \*********************************/
-/*! exports provided: dialogAlert, fieldLabel, fieldSelect */
+/*! exports provided: dialogAlert, fieldLabel, fieldSelect, fieldCheckbox */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17283,6 +17283,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dialogAlert", function() { return dialogAlert; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldLabel", function() { return fieldLabel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldSelect", function() { return fieldSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldCheckbox", function() { return fieldCheckbox; });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -17335,6 +17336,16 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
 
   select.selectItemAtIndex(0);
   return select;
+};
+var fieldCheckbox = function fieldCheckbox(pos, label, viewWidth, viewHeight) {
+  var state = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+  var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - pos, viewWidth, 20));
+  var initState = state ? NSOnState : NSOffState;
+  checkbox.setButtonType(NSSwitchButton);
+  checkbox.setBezelStyle(0);
+  checkbox.setTitle(label);
+  checkbox.setState(initState);
+  return checkbox;
 };
 
 /***/ }),
@@ -17464,6 +17475,13 @@ __webpack_require__.r(__webpack_exports__);
 var dropdownFileType;
 var dropdownUnits;
 var dropdownNames;
+var checkFontFamily;
+var checkFontSize;
+var checkFontWeight;
+var checkLineHeight;
+var checkLetterSpacing;
+var checkTextTransform;
+var checkColor;
 /**
  * 
  * Dialog
@@ -17474,7 +17492,7 @@ var dialogBox = function dialogBox(selectedLayers) {
   var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["dialogAlert"])("Export Text Styles"); // Creating the view
 
   var viewWidth = 300;
-  var viewHeight = 180;
+  var viewHeight = 340;
   var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
   alert.addAccessoryView(view); //Dropdown: File format
 
@@ -17490,7 +17508,23 @@ var dialogBox = function dialogBox(selectedLayers) {
 
   view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldLabel"])(145, 'Naming:', viewWidth, viewHeight));
   dropdownNames = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldSelect"])(155, selectedLayers, viewWidth, viewHeight, true);
-  view.addSubview(dropdownNames);
+  view.addSubview(dropdownNames); //Checkbox: Select values
+
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldLabel"])(200, 'Export selected values:', viewWidth, viewHeight));
+  checkFontFamily = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(210, 'Font Family', viewWidth, viewHeight);
+  view.addSubview(checkFontFamily);
+  checkFontSize = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(230, 'Font Size', viewWidth, viewHeight, true);
+  view.addSubview(checkFontSize);
+  checkFontWeight = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(250, 'Font Weight', viewWidth, viewHeight, true);
+  view.addSubview(checkFontWeight);
+  checkLineHeight = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(270, 'Line Height', viewWidth, viewHeight, true);
+  view.addSubview(checkLineHeight);
+  checkLetterSpacing = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(290, 'Letter Spacing', viewWidth, viewHeight, true);
+  view.addSubview(checkLetterSpacing);
+  checkTextTransform = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(310, 'Text Transform', viewWidth, viewHeight, true);
+  view.addSubview(checkTextTransform);
+  checkColor = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(330, 'Color', viewWidth, viewHeight);
+  view.addSubview(checkColor);
   return alert.runModal();
 };
 /**
@@ -17528,36 +17562,39 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
       var fontWeight = layer.style.fontWeight * 100;
       var lineHeight = units == 'Absolute (px)' ? lodash__WEBPACK_IMPORTED_MODULE_1___default.a.round(layer.style.lineHeight, 2) + 'px' : lodash__WEBPACK_IMPORTED_MODULE_1___default.a.round(layer.style.lineHeight / layer.style.fontSize, 2);
       var letterSpacing = layer.style.kerning == null ? 'normal' : units == 'Absolute (px)' ? lodash__WEBPACK_IMPORTED_MODULE_1___default.a.round(layer.style.kerning, 2) + 'px' : lodash__WEBPACK_IMPORTED_MODULE_1___default.a.round(layer.style.kerning / layer.style.fontSize, 2) + 'em';
-      var textTransform = layer.style.textTransform; // JSON
+      var textTransform = layer.style.textTransform;
+      var textColor = layer.style.textColor.substr(0, 7); // JSON
 
       if (type == 'JSON') {
-        texts[layerName] = {
-          fontFamily: fontFamily,
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          lineHeight: lineHeight,
-          letterSpacing: letterSpacing,
-          textTransform: textTransform
-        };
+        texts[layerName] = {};
+        if (checkFontFamily.stringValue() == 1) texts[layerName]['fontFamily'] = fontFamily;
+        if (checkFontSize.stringValue() == 1) texts[layerName]['fontSize'] = fontSize;
+        if (checkFontWeight.stringValue() == 1) texts[layerName]['fontWeight'] = fontWeight;
+        if (checkLineHeight.stringValue() == 1) texts[layerName]['lineHeight'] = lineHeight;
+        if (checkLetterSpacing.stringValue() == 1) texts[layerName]['letterSpacing'] = letterSpacing;
+        if (checkTextTransform.stringValue() == 1) texts[layerName]['textTransform'] = textTransform;
+        if (checkColor.stringValue() == 1) texts[layerName]['color'] = textColor;
       } else if (type == 'JavaScript Object') {
         // JS Object
         texts = texts.concat('\t"' + layerName + '": {\n');
-        texts = texts.concat('\t\tfontFamily: "' + fontFamily + '",\n');
-        texts = texts.concat('\t\tfontSize: "' + fontSize + '",\n');
-        texts = texts.concat('\t\tfontWeight: ' + fontWeight + ',\n');
-        texts = texts.concat('\t\tlineHeight: "' + lineHeight + '",\n');
-        texts = texts.concat('\t\tletterSpacing: "' + letterSpacing + '",\n');
-        texts = texts.concat('\t\ttextTransform: "' + textTransform + '",\n');
+        if (checkFontFamily.stringValue() == 1) texts = texts.concat('\t\tfontFamily: "' + fontFamily + '",\n');
+        if (checkFontSize.stringValue() == 1) texts = texts.concat('\t\tfontSize: "' + fontSize + '",\n');
+        if (checkFontWeight.stringValue() == 1) texts = texts.concat('\t\tfontWeight: ' + fontWeight + ',\n');
+        if (checkLineHeight.stringValue() == 1) texts = texts.concat('\t\tlineHeight: "' + lineHeight + '",\n');
+        if (checkLetterSpacing.stringValue() == 1) texts = texts.concat('\t\tletterSpacing: "' + letterSpacing + '",\n');
+        if (checkTextTransform.stringValue() == 1) texts = texts.concat('\t\ttextTransform: "' + textTransform + '",\n');
+        if (checkColor.stringValue() == 1) texts = texts.concat('\t\tcolor: "' + textColor + '",\n');
         texts = texts.concat('\t},\n');
       } else if (type == 'CSS') {
         // CSS
         texts = texts.concat('.' + layerName + '{\n');
-        texts = texts.concat('\tfont-family: "' + fontFamily + '";\n');
-        texts = texts.concat('\tfont-size: ' + fontSize + ';\n');
-        texts = texts.concat('\tfont-weight: ' + fontWeight + ';\n');
-        texts = texts.concat('\tline-height: ' + lineHeight + ';\n');
-        texts = texts.concat('\tletter-spacing: ' + letterSpacing + ';\n');
-        texts = texts.concat('\ttext-transform: ' + textTransform + ';\n');
+        if (checkFontFamily.stringValue() == 1) texts = texts.concat('\tfont-family: "' + fontFamily + '";\n');
+        if (checkFontSize.stringValue() == 1) texts = texts.concat('\tfont-size: ' + fontSize + ';\n');
+        if (checkFontWeight.stringValue() == 1) texts = texts.concat('\tfont-weight: ' + fontWeight + ';\n');
+        if (checkLineHeight.stringValue() == 1) texts = texts.concat('\tline-height: ' + lineHeight + ';\n');
+        if (checkLetterSpacing.stringValue() == 1) texts = texts.concat('\tletter-spacing: ' + letterSpacing + ';\n');
+        if (checkTextTransform.stringValue() == 1) texts = texts.concat('\ttext-transform: ' + textTransform + ';\n');
+        if (checkColor.stringValue() == 1) texts = texts.concat('\tcolor: ' + textColor + ';\n');
         texts = texts.concat('}\n');
       }
     });

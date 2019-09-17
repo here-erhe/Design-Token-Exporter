@@ -17275,7 +17275,7 @@ module.exports = function(module) {
 /*!*********************************!*\
   !*** ./src/lib/dialogFields.js ***!
   \*********************************/
-/*! exports provided: dialogAlert, fieldLabel, fieldSelect */
+/*! exports provided: dialogAlert, fieldLabel, fieldSelect, fieldCheckbox */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17283,6 +17283,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dialogAlert", function() { return dialogAlert; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldLabel", function() { return fieldLabel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldSelect", function() { return fieldSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldCheckbox", function() { return fieldCheckbox; });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -17335,6 +17336,16 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
 
   select.selectItemAtIndex(0);
   return select;
+};
+var fieldCheckbox = function fieldCheckbox(pos, label, viewWidth, viewHeight) {
+  var state = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+  var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - pos, viewWidth, 20));
+  var initState = state ? NSOnState : NSOffState;
+  checkbox.setButtonType(NSSwitchButton);
+  checkbox.setBezelStyle(0);
+  checkbox.setTitle(label);
+  checkbox.setState(initState);
+  return checkbox;
 };
 
 /***/ }),

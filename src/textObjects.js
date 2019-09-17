@@ -4,11 +4,20 @@ import _ from 'lodash'
 import values from './lib/values'
 import varNaming from './lib/varNaming'
 
-import {dialogAlert,fieldLabel, fieldSelect} from './lib/dialogFields'
+import {dialogAlert,fieldLabel, fieldSelect, fieldCheckbox} from './lib/dialogFields'
 
 let dropdownFileType;
 let dropdownUnits;
 let dropdownNames;
+
+let checkFontFamily;
+let checkFontSize;
+let checkFontWeight;
+let checkLineHeight;
+let checkLetterSpacing;
+let checkTextTransform;
+let checkColor;
+
 
 /**
  * 
@@ -21,7 +30,7 @@ const dialogBox = (selectedLayers) => {
 
   // Creating the view
   let viewWidth = 300;
-  let viewHeight = 180;
+  let viewHeight = 340;
 
   let view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
   alert.addAccessoryView(view);
@@ -50,8 +59,34 @@ const dialogBox = (selectedLayers) => {
   dropdownNames = fieldSelect(155, selectedLayers, viewWidth, viewHeight, true)
   view.addSubview(dropdownNames);
 
+  //Checkbox: Select values
 
-  return alert.runModal();
+  view.addSubview(fieldLabel(200, 'Export selected values:', viewWidth, viewHeight));
+
+  checkFontFamily = fieldCheckbox(210, 'Font Family', viewWidth, viewHeight)
+  view.addSubview(checkFontFamily);
+
+  checkFontSize = fieldCheckbox(230, 'Font Size', viewWidth, viewHeight, true)
+  view.addSubview(checkFontSize);
+
+  checkFontWeight = fieldCheckbox(250, 'Font Weight', viewWidth, viewHeight, true)
+  view.addSubview(checkFontWeight);
+
+  checkLineHeight = fieldCheckbox(270, 'Line Height', viewWidth, viewHeight, true)
+  view.addSubview(checkLineHeight);
+
+  checkLetterSpacing = fieldCheckbox(290, 'Letter Spacing', viewWidth, viewHeight, true)
+  view.addSubview(checkLetterSpacing);
+
+  checkTextTransform = fieldCheckbox(310, 'Text Transform', viewWidth, viewHeight, true)
+  view.addSubview(checkTextTransform);
+
+  checkColor = fieldCheckbox(330, 'Color', viewWidth, viewHeight)
+  view.addSubview(checkColor);
+
+  
+
+  return alert.runModal(); 
 
 }
 
@@ -100,42 +135,50 @@ const exportTextstyles = (selectedLayers, type, units, naming) => {
         let letterSpacing = layer.style.kerning == null ? 'normal' :  units == 'Absolute (px)' ? _.round(layer.style.kerning, 2) + 'px' : _.round(layer.style.kerning / layer.style.fontSize, 2) + 'em';
         let textTransform = layer.style.textTransform;
 
-        
-        // JSON
-        if(type == 'JSON'){
-        texts[layerName] = {
-            fontFamily: fontFamily,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            lineHeight: lineHeight,
-            letterSpacing: letterSpacing,
-            textTransform: textTransform
-        };
+        let textColor = layer.style.textColor.substr(0, 7);
+
+
+
+
+      // JSON
+      if(type == 'JSON'){
+
+        texts[layerName] = {};
+
+        if(checkFontFamily.stringValue() == 1) texts[layerName]['fontFamily'] = fontFamily;
+        if(checkFontSize.stringValue() == 1) texts[layerName]['fontSize'] = fontSize;
+        if(checkFontWeight.stringValue() == 1) texts[layerName]['fontWeight'] = fontWeight;
+        if(checkLineHeight.stringValue() == 1) texts[layerName]['lineHeight'] = lineHeight;
+        if(checkLetterSpacing.stringValue() == 1) texts[layerName]['letterSpacing'] = letterSpacing;
+        if(checkTextTransform.stringValue() == 1) texts[layerName]['textTransform'] = textTransform;
+        if(checkColor.stringValue() == 1) texts[layerName]['color'] = textColor;
+
         
       }else if(type == 'JavaScript Object'){
         // JS Object
-
         texts = texts.concat('\t"' + layerName + '": {\n');
-          texts = texts.concat('\t\tfontFamily: "' + fontFamily +'",\n');
-          texts = texts.concat('\t\tfontSize: "' + fontSize +'",\n');
-          texts = texts.concat('\t\tfontWeight: ' + fontWeight +',\n');
-          texts = texts.concat('\t\tlineHeight: "' + lineHeight + '",\n');
-          texts = texts.concat('\t\tletterSpacing: "' + letterSpacing + '",\n');
-          texts = texts.concat('\t\ttextTransform: "' + textTransform + '",\n');
+          if(checkFontFamily.stringValue() == 1) texts = texts.concat('\t\tfontFamily: "' + fontFamily +'",\n');
+          if(checkFontSize.stringValue() == 1) texts = texts.concat('\t\tfontSize: "' + fontSize +'",\n');
+          if(checkFontWeight.stringValue() == 1) texts = texts.concat('\t\tfontWeight: ' + fontWeight +',\n');
+          if(checkLineHeight.stringValue() == 1) texts = texts.concat('\t\tlineHeight: "' + lineHeight + '",\n');
+          if(checkLetterSpacing.stringValue() == 1) texts = texts.concat('\t\tletterSpacing: "' + letterSpacing + '",\n');
+          if(checkTextTransform.stringValue() == 1) texts = texts.concat('\t\ttextTransform: "' + textTransform + '",\n');
+          if(checkColor.stringValue() == 1) texts = texts.concat('\t\tcolor: "' + textColor + '",\n');
+
         texts = texts.concat( '\t},\n');
- 
-        
+
       }else if(type == 'CSS'){
         // CSS
-
         texts = texts.concat('.' + layerName + '{\n');
-          texts = texts.concat('\tfont-family: "' + fontFamily +'";\n');
-          texts = texts.concat('\tfont-size: ' + fontSize +';\n');
-          texts = texts.concat('\tfont-weight: ' + fontWeight +';\n');
-          texts = texts.concat('\tline-height: ' + lineHeight + ';\n');
-          texts = texts.concat('\tletter-spacing: ' + letterSpacing + ';\n');
-          texts = texts.concat('\ttext-transform: ' + textTransform + ';\n');
+          if(checkFontFamily.stringValue() == 1) texts = texts.concat('\tfont-family: "' + fontFamily +'";\n');
+          if(checkFontSize.stringValue() == 1) texts = texts.concat('\tfont-size: ' + fontSize +';\n');
+          if(checkFontWeight.stringValue() == 1) texts = texts.concat('\tfont-weight: ' + fontWeight +';\n');
+          if(checkLineHeight.stringValue() == 1) texts = texts.concat('\tline-height: ' + lineHeight + ';\n');
+          if(checkLetterSpacing.stringValue() == 1) texts = texts.concat('\tletter-spacing: ' + letterSpacing + ';\n');
+          if(checkTextTransform.stringValue() == 1) texts = texts.concat('\ttext-transform: ' + textTransform + ';\n');
+          if(checkColor.stringValue() == 1) texts = texts.concat('\tcolor: ' + textColor + ';\n');
         texts = texts.concat( '}\n');
+
       }
 
     })
