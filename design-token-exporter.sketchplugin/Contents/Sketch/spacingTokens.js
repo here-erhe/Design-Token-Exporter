@@ -17564,9 +17564,9 @@ var dialogBox = function dialogBox(selectedLayers) {
 var exportTextstyles = function exportTextstyles(selectedLayers, type, format, naming, units) {
   var selectedCount = selectedLayers.length;
   var fileTypes = NSArray.arrayWithArray([_lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype, nil]);
-  var savePanel = NSSavePanel.savePanel();
-  savePanel.setCanChooseDirectories(true);
-  savePanel.setCanCreateDirectories(true);
+  var savePanel = NSSavePanel.savePanel(); //savePanel.setCanChooseDirectories(true)
+  //savePanel.setCanCreateDirectories(true)
+
   savePanel.setAllowedFileTypes(fileTypes);
   savePanel.setNameFieldStringValue('spacing.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
   savePanel.setPrompt("Save Spacing Tokens");

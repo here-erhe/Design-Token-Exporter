@@ -17355,9 +17355,9 @@ var exportColors = function exportColors(selectedLayers, type, format, naming) {
       sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.alert('Select layers', 'Select shape layers with solid fill color');
     } else {
       var fileTypes = NSArray.arrayWithArray([_lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype, nil]);
-      var savePanel = NSSavePanel.savePanel();
-      savePanel.setCanChooseDirectories(true);
-      savePanel.setCanCreateDirectories(true);
+      var savePanel = NSSavePanel.savePanel(); //savePanel.setCanChooseDirectories(false);
+      //savePanel.setCanCreateDirectories(false);
+
       savePanel.setAllowedFileTypes(fileTypes);
       savePanel.setNameFieldStringValue('colors.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
       savePanel.setPrompt("Save Color Tokens");

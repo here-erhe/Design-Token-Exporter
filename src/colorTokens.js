@@ -27,6 +27,7 @@ const dialogBox = (selectedLayers) => {
   let viewWidth = 300;
   let viewHeight = 180;
 
+
   let view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
   alert.addAccessoryView(view);
 
@@ -66,6 +67,7 @@ const dialogBox = (selectedLayers) => {
  */
 const exportColors = (selectedLayers, type, format, naming) => {
 
+
   const selectedCount = selectedLayers.length;
 
   if (selectedCount !== 0) {
@@ -90,17 +92,21 @@ const exportColors = (selectedLayers, type, format, naming) => {
       sketch.UI.alert('Select layers','Select shape layers with solid fill color');
     }else{
 
-      let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
 
+      let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
       let savePanel = NSSavePanel.savePanel()
-      savePanel.setCanChooseDirectories(true)
-      savePanel.setCanCreateDirectories(true)
+
+      
+      //savePanel.setCanChooseDirectories(false);
+      //savePanel.setCanCreateDirectories(false);
       savePanel.setAllowedFileTypes(fileTypes)
+
     
       savePanel.setNameFieldStringValue('colors.' + values[type].filetype)
       savePanel.setPrompt("Save Color Tokens");
 
       savePanel.runModal();
+
 
       let file = NSString.stringWithString(formatObject(variables, type, 'colors'));
       let file_path = savePanel.URL().path();

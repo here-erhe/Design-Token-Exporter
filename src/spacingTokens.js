@@ -77,8 +77,8 @@ const exportTextstyles = (selectedLayers, type, format, naming, units) => {
   let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
 
   let savePanel = NSSavePanel.savePanel()
-  savePanel.setCanChooseDirectories(true)
-  savePanel.setCanCreateDirectories(true)
+  //savePanel.setCanChooseDirectories(true)
+  //savePanel.setCanCreateDirectories(true)
   savePanel.setAllowedFileTypes(fileTypes)
 
   savePanel.setNameFieldStringValue('spacing.' + values[type].filetype)
