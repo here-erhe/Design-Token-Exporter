@@ -2,7 +2,7 @@
   "name": "design-token-exporter",
   "description": "Simple Design Token Exporter",
   "author": "Herkko Huttunen",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "license": "MIT",
   "repository": {
     "type": "git",
