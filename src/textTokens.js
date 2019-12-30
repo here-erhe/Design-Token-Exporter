@@ -20,7 +20,7 @@ import {dialogAlert,fieldLabel, fieldSelect} from './lib/dialogFields'
  */
 const dialogBox = (selectedLayers) => {
 
-  let alert = dialogAlert("Export Text Tokens");
+  let alert = dialogAlert("Export Text Variables");
 
   // Creating the view
   let viewWidth = 300;
@@ -40,7 +40,7 @@ const dialogBox = (selectedLayers) => {
 
   //Dropdown: Select text tokens 
 
-  view.addSubview(fieldLabel(90, 'Select tokens:', viewWidth, viewHeight));
+  view.addSubview(fieldLabel(90, 'Select values:', viewWidth, viewHeight));
 
   let types = [ "Font Size", "Font Weight", "Font Family", "Line Height", "Letter Spacing"];
   dropdownFormat = fieldSelect(100, types, viewWidth, viewHeight)
@@ -112,7 +112,7 @@ const exportTextstyles = (selectedLayers, type, format, naming, units) => {
     let file_path = savePanel.URL().path();
     file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
 
-    sketch.UI.message('Text Tokens Exported!');
+    sketch.UI.message('Text Variables Exported!');
 
    }
 

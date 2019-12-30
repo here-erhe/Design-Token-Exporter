@@ -8,19 +8,25 @@
   "compatibleVersion": "54.0",
   "commands": [
     {
-      "name": "Export Colors Tokens",
+      "name": "Export Tokens",
+      "identifier": "tokens.tokens",
+      "script": "./exportTokens.js",
+      "description": "Export multiple multiple layers or one artboard"
+    },
+    {
+      "name": "Export Colors Variables",
       "identifier": "tokens.colors",
       "script": "./colorTokens.js",
       "description": "Export selected layers"
     },
     {
-      "name": "Export Text Tokens",
+      "name": "Export Text Variables",
       "identifier": "tokens.text",
       "script": "./textTokens.js",
       "description": "Export selected layers"
     },
     {
-      "name": "Export Spacing Tokens",
+      "name": "Export Spacing Variables",
       "identifier": "tokens.spacing",
       "script": "./spacingTokens.js",
       "description": "Export selected layers"
@@ -35,6 +41,8 @@
   "menu": {
     "title": "Design Token Exporter",
     "items": [
+      "tokens.tokens",
+      "-",
       "tokens.colors",
       "tokens.text",
       "tokens.spacing",

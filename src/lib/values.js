@@ -47,6 +47,14 @@ const values = {
       lineEnd: "",
       filetype: "json"
     },
+    'YAML': {
+      lineStart: {},
+      prefix: "",
+      diviner: "",
+      postfix: "",
+      lineEnd: "",
+      filetype: "yml"
+    },
   }
 
 export default values;

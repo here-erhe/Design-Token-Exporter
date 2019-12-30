@@ -2,24 +2,84 @@
 
 # Design Token Exporter
 
-Export Design tokens from your Sketch project. You can export colors, text, spacing tokens and text styles. 
+**Export Design tokens from your Sketch project.**
+
+- You can export Design Token file either JSON or YAML format. Token file follow Salesforce [Theo](https://github.com/salesforce-ux/theo) spec.
+- Layers naming format is type/category/tokenname (e.g. color/background-color/color-background)
+- Available categories:
+
+| Category                     | Sketch Layer type              | Value														|
+| ---------------------------  | ------------------------------ | --------------------------------------------------------- |
+| `spacing`/`space`/`spacer`   | Shape Layer            		| Layer height 												|
+| `sizing`/`size`              | Shape Layer            		| Layer height 												|
+| `font`                       | Text Layer             		| Type = number (Font weight) / Type = ... (Font Family)	|
+| `font-style`                 | Text Layer            		 	| Font style												|
+| `font-weight`                | Text Layer           			| Font weight 												|
+| `font-size`                  | Text Layer             		| Font Size 												|
+| `line-height`                | Text Layer           	 		| Line height 												|
+| `font-family`                | Text Layer          	 		| Font Family 												|
+| `border-style`               | Shape Layer           		 	| Border style 												|
+| `border-color`               | Shape Layer           		 	| Border style or Fill color 								|
+| `radius`                     | Shape Layer                  	| Radius  													|
+| `border-radius`              | Shape Layer            		| Radius 													|
+| `hr-color`                   | Shape Layer  					| Fill color 												|
+| `background-color`           | Shape Layer       			 	| Fill color 												|
+| `gradient`                   | Shape Layer              		| Fill gradient 											|
+| `background-gradient`        | Shape Layer    				| Fill gradient 											|
+| `drop-shadow`                | Shape Layer            		| Shadows 													|
+| `box-shadow`                 | Shape Layer             		| Shadows 												 	|
+| `inner-shadow`               | Shape Layer      				| Inner Shadows 											|
+| `text-color`                 | Shape Layer or Text Layer      | Text color or Fill color 									|
+| `text-shadow`                | Shape Layer or Text Layer      | Layer shadow 												|
+| `time`                       | Text Layer                   	| Text layer value 											|
+| `media-query`                | Text Layer          			| Text layer value 											|
+| `z-index`                	   | Text Layer          			| Text layer value 											|
+
+**Export Design variables from your Sketch project. You can export colors, text, spacing variables and text styles.**
 
 - You can choose file format: SCSS, CSS, LESS, JSON, JavaScript (Object/Variables)
 - You can choose color format: HEX or RGBA
-- You can choose text tokens: font family, font size, font weight, line height or letter spacing 
+- You can choose text value: font family, font size, font weight, line height or letter spacing 
 - You can choose units: Absolute (px) or Relative (rem)
 - You can choose naming (kebab-case, camelCase or part of layer name)
 
 ## Features 
 
-1. Export Color Tokens
-2. Export Text Tokens
-3. Export Spacing Tokens
-4. Export Text Styles
+1. Export Tokens
+2. Export Color Variables
+3. Export Text Variables
+4. Export Spacing Variables
+5. Export Text Styles
 
-### 1. Export Color Tokens
+### 1. Export Tokens
 
-Select layers and go to `Plugins -> Design Token Exporter -> Export Color Tokens`
+Select layers or one artboard and go to `Plugins -> Design Token Exporter -> Export Tokens`
+
+**Example output - tokens.yml**
+
+```yml
+props:
+  gray_1:
+    value: "#fafaf9"
+    type: "color"
+    category: "gray"
+  gradient_background:
+    value: "linear-gradient(180deg, #FAFAF9 0%, #F3F2F2 100%)"
+    type: "..."
+    category: "gradient"
+  spacing_m:
+    value: "16px"
+    type: "number"
+    category: "spacing"
+  font_size_l:
+    value: "24px"
+    type: "number"
+    category: "font-size"
+```
+
+### 2. Export Color Variables
+
+Select layers and go to `Plugins -> Design Token Exporter -> Export Color Variables`
 
 ![alt text](images/colors.gif)
 
@@ -40,9 +100,9 @@ $grey3: #607d8b;
 $grey4: #37474f;
 ```
 
-### 2. Export Text Tokens
+### 3. Export Text Variables
 
-Select layers and go to `Plugins -> Design Token Exporter -> Export Text Tokens`
+Select layers and go to `Plugins -> Design Token Exporter -> Export Text Variables`
 
 ![alt text](images/fontsize.gif)
 
@@ -62,9 +122,9 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export Text Tokens`
 }
 ```
 
-### 3. Export Spacing Tokens
+### 4. Export Spacing Variables
 
-Select layers and go to `Plugins -> Design Token Exporter -> Export Spacing Tokens`
+Select layers and go to `Plugins -> Design Token Exporter -> Export Spacing Variables`
 
 ![alt text](images/spacing.gif)
 
@@ -82,7 +142,7 @@ Select layers and go to `Plugins -> Design Token Exporter -> Export Spacing Toke
 }
 ```
 
-### 4. Export Text Styles
+### 5. Export Text Styles
 
 Select layers and go to `Plugins -> Design Token Exporter -> Export Text Styles`
 

@@ -1,16 +1,24 @@
 import _ from 'lodash'
 import values from './values'
+import YAML from 'json-to-pretty-yaml';
 
 const formatObject = (obj, type, jsonTitle) => {
 
     let string = '';
 
-    if(type == 'JSON'){
+    if(type == 'JSON'){ 
 
         let jsonObj = {};
         jsonObj[_.camelCase(jsonTitle)] = obj;
 
         string = JSON.stringify(jsonObj, null, "\t");
+
+    }else if(type == 'YAML'){ 
+
+        let jsonObj = {};
+        jsonObj[_.camelCase(jsonTitle)] = obj;
+
+        string = YAML.stringify(jsonObj);
 
     }else{
 

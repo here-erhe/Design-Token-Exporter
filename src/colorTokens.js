@@ -20,7 +20,7 @@ let dropdownNames;
  */
 const dialogBox = (selectedLayers) => {
 
-  let alert = dialogAlert("Export Color Tokens");
+  let alert = dialogAlert("Export Color Variables");
 
   // Creating the view
   
@@ -103,7 +103,7 @@ const exportColors = (selectedLayers, type, format, naming) => {
 
     
       savePanel.setNameFieldStringValue('colors.' + values[type].filetype)
-      savePanel.setPrompt("Save Color Tokens");
+      savePanel.setPrompt("Save Color Variables");
 
       savePanel.runModal();
 
@@ -112,7 +112,7 @@ const exportColors = (selectedLayers, type, format, naming) => {
       let file_path = savePanel.URL().path();
       file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
 
-      sketch.UI.message('Color Tokens Exported!');
+      sketch.UI.message('Color Variables Exported!');
     }
 
     

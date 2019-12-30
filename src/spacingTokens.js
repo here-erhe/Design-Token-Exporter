@@ -19,7 +19,7 @@ let dropdownUnits;
  */
 const dialogBox = (selectedLayers) => {
 
-  let alert = dialogAlert("Export Spacing Tokens");
+  let alert = dialogAlert("Export Spacing Variables");
 
   // Creating the view
   let viewWidth = 300;
@@ -82,7 +82,7 @@ const exportTextstyles = (selectedLayers, type, format, naming, units) => {
   savePanel.setAllowedFileTypes(fileTypes)
 
   savePanel.setNameFieldStringValue('spacing.' + values[type].filetype)
-  savePanel.setPrompt("Save Spacing Tokens");
+  savePanel.setPrompt("Save Spacing Variables");
 
   if (savePanel.runModal() && selectedCount !== 0) {
 
@@ -105,7 +105,7 @@ const exportTextstyles = (selectedLayers, type, format, naming, units) => {
     let file_path = savePanel.URL().path();
     file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
 
-    sketch.UI.message('Spacing Tokens Exported!');
+    sketch.UI.message('Spacing Variables Exported!');
 
    }
 

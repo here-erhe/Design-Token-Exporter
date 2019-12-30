@@ -86,7 +86,7 @@ var exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/spacingTokens.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/exportTokens.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -17531,6 +17531,140 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./src/exportTokens.js":
+/*!*****************************!*\
+  !*** ./src/exportTokens.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch */ "sketch");
+/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _lib_values__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/values */ "./src/lib/values.js");
+/* harmony import */ var _lib_formatObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/formatObject */ "./src/lib/formatObject.js");
+/* harmony import */ var _lib_tokenValue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/tokenValue */ "./src/lib/tokenValue.js");
+/* harmony import */ var _lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/dialogFields */ "./src/lib/dialogFields.js");
+
+
+
+
+
+
+var dropdownFileType;
+/**
+ * 
+ * Dialog
+ * 
+ */
+
+var dialogBox = function dialogBox(selectedLayers) {
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["dialogAlert"])("Export Design Tokens", "Choose tokens file format. Layers naming format is type/category/name (e.g. Color/Background-Color/Primary-red)."); // Creating the view
+
+  var viewWidth = 300;
+  var viewHeight = 60;
+  var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
+  alert.addAccessoryView(view); //Dropdown: File format
+
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
+  var names = ["YAML", "JSON"];
+  dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(45, names, viewWidth, viewHeight);
+  view.addSubview(dropdownFileType);
+  return alert.runModal();
+};
+/**
+ * 
+ * Export exportColors
+ * 
+ */
+
+
+var exportTokens = function exportTokens(selectedLayers, type) {
+  var selectedCount = selectedLayers.length;
+
+  if (selectedCount !== 0) {
+    var variables = {};
+
+    lodash__WEBPACK_IMPORTED_MODULE_1___default.a.forEach(selectedLayers, function (layer) {
+      var layerNameArr = layer.name.split('/');
+
+      if (lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(layerNameArr) > 2) {
+        // Notice layer if it contains type/category/name
+        var value = Object(_lib_tokenValue__WEBPACK_IMPORTED_MODULE_4__["default"])(layer);
+
+        if (value !== "") {
+          var tokenType = layerNameArr[0];
+
+          var tokenCategory = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.kebabCase(layerNameArr[1]);
+
+          var tokenName = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.snakeCase(layerNameArr[2]);
+
+          var newObj = {
+            "value": value,
+            "type": tokenType,
+            "category": tokenCategory
+          };
+          variables[tokenName] = newObj;
+        }
+      }
+    });
+
+    if (lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(variables) == 0) {
+      sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.alert('Select layers or artboard', 'Select one artboard or multiple layers');
+    } else {
+      var fileTypes = NSArray.arrayWithArray([_lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype, nil]);
+      var savePanel = NSSavePanel.savePanel();
+      savePanel.setAllowedFileTypes(fileTypes);
+      savePanel.setNameFieldStringValue('tokens.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
+      savePanel.setPrompt("Save Tokens");
+      savePanel.runModal();
+      var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_3__["default"])(variables, type, 'props'));
+      var file_path = savePanel.URL().path();
+      file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
+      sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Design Tokens Exported!');
+    }
+  }
+};
+/**
+ * 
+ * Main
+ * 
+ */
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var doc = sketch__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument();
+  var selected = [];
+
+  if (doc.selectedLayers.layers[0].type === "Artboard") {
+    // Select Artboard layers
+    selected = doc.selectedLayers.layers[0].layers;
+  } else {
+    // Selected layers
+    selected = doc.selectedLayers.layers;
+  }
+
+  var selectedLayers = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reverse(selected);
+
+  var selectedCount = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(selectedLayers);
+
+  if (selectedCount !== 0) {
+    var dialog = dialogBox(selectedLayers);
+    var exportType = dropdownFileType.titleOfSelectedItem();
+
+    if (dialog == "1000") {
+      exportTokens(selectedLayers, exportType);
+    }
+  } else {
+    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.alert('Select tokens', 'Please select layers or artboard first.');
+  }
+});
+
+/***/ }),
+
 /***/ "./src/lib/dialogFields.js":
 /*!*********************************!*\
   !*** ./src/lib/dialogFields.js ***!
@@ -17659,6 +17793,196 @@ var formatObject = function formatObject(obj, type, jsonTitle) {
 
 /***/ }),
 
+/***/ "./src/lib/hexAToRGBA.js":
+/*!*******************************!*\
+  !*** ./src/lib/hexAToRGBA.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var hexAToRGBA = function hexAToRGBA(h) {
+  var r = 0,
+      g = 0,
+      b = 0,
+      a = 1;
+
+  if (h.length == 5) {
+    r = "0x" + h[1] + h[1];
+    g = "0x" + h[2] + h[2];
+    b = "0x" + h[3] + h[3];
+    a = "0x" + h[4] + h[4];
+  } else if (h.length == 9) {
+    r = "0x" + h[1] + h[2];
+    g = "0x" + h[3] + h[4];
+    b = "0x" + h[5] + h[6];
+    a = "0x" + h[7] + h[8];
+  }
+
+  a = +(a / 255).toFixed(2);
+  return "rgba(" + +r + "," + +g + "," + +b + "," + a + ")";
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (hexAToRGBA);
+
+/***/ }),
+
+/***/ "./src/lib/tokenValue.js":
+/*!*******************************!*\
+  !*** ./src/lib/tokenValue.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hexAToRGBA */ "./src/lib/hexAToRGBA.js");
+
+
+var tokenValue = function tokenValue(layer) {
+  var value = '';
+  var layerType = layer.type;
+  var layerNameArr = layer.name.split('/');
+  var tokenType = layerNameArr[0];
+
+  var tokenCategory = _.kebabCase(layerNameArr[1]);
+
+  if (layerType === "ShapePath") {
+    // ShapeLayers + Category match
+    if (_.indexOf(['spacing', 'space', 'spacer', 'sizing', 'size'], tokenCategory) !== -1) {
+      // Get spacing
+      value = _.round(layer.frame.height, 0) + 'px';
+    } else if (_.indexOf(['hr-color', 'background-color', 'text-color', 'color'], tokenCategory) !== -1) {
+      // Get color
+      var _color = _.last(layer.style.fills).color;
+
+      value = _color.slice(-2) === "ff" ? _color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_color);
+    } else if (tokenCategory === 'border-color') {
+      // Get border color
+      if (_.size(layer.style.borders) !== 0) {
+        var border = _.last(layer.style.borders);
+
+        value = border.color.substr(0, 7);
+      } else {
+        var fillArray = layer.style.fills;
+        value = _.last(fillArray).color.substr(0, 7);
+      }
+    } else if (_.indexOf(['radius', 'border-radius'], tokenCategory) !== -1) {
+      // Get color
+      var points = _.map(layer.points, 'cornerRadius');
+
+      if (_.size(_.uniq(points)) === 1) {
+        if (layer.frame.width / 2 === points[1] || layer.frame.height / 2 === points[1]) {
+          value = '50%';
+        } else {
+          value = points[1] + 'px';
+        }
+      } else {
+        value = _.join(points, 'px ') + 'px';
+      }
+    } else if (_.indexOf(['drop-shadow', 'box-shadow', 'text-shadow', 'shadow'], tokenCategory) !== -1) {
+      // Get shadow
+      var shadowArr = _.last(layer.style.shadows);
+
+      var x = shadowArr.x == 0 ? 0 : shadowArr.x + "px";
+      var y = shadowArr.y == 0 ? 0 : shadowArr.y + "px";
+      var blur = shadowArr.blur == 0 ? 0 : shadowArr.blur + "px";
+      var spread = shadowArr.spread == 0 ? 0 : shadowArr.spread + "px";
+
+      var _color2 = shadowArr.color.slice(-2) === "ff" ? shadowArr.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(shadowArr.color);
+
+      value = x + " " + y + " " + blur + " " + spread + " " + _color2;
+    } else if (tokenCategory === 'inner-shadow') {
+      // Get innershadow
+      var _shadowArr = _.last(layer.style.innerShadows);
+
+      var _x = _shadowArr.x == 0 ? 0 : _shadowArr.x + "px";
+
+      var _y = _shadowArr.y == 0 ? 0 : _shadowArr.y + "px";
+
+      var _blur = _shadowArr.blur == 0 ? 0 : _shadowArr.blur + "px";
+
+      var _spread = _shadowArr.spread == 0 ? 0 : _shadowArr.spread + "px";
+
+      var _color3 = _shadowArr.color.slice(-2) === "ff" ? _shadowArr.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_shadowArr.color);
+
+      value = "inset " + _x + " " + _y + " " + _blur + " " + _spread + " " + _color3;
+    } else if (_.indexOf(['background-gradient', 'gradient'], tokenCategory) !== -1) {
+      // Get gradient
+      var gradient = layer.style.fills[0].gradient;
+
+      if (gradient.gradientType === "Radial") {
+        value = "radial-gradient(" + gradient.sketchObject.gradientStringWithMasterAlpha(1) + ")";
+      } else if (gradient.gradientType === "Linear") {
+        value = "linear-gradient(" + gradient.sketchObject.gradientStringWithMasterAlpha(1) + ")";
+      }
+    } else if (tokenCategory === 'border-style') {
+      // Get border style
+      var _border = _.last(layer.style.borders);
+
+      var borderColor = _border.color.substr(0, 7);
+
+      var borderThickness = _border.thickness + "px";
+      var borderStyle = _.isEmpty(layer.style.borderOptions.dashPattern) ? "solid" : "dashed";
+      value = borderThickness + " " + borderStyle + " " + borderColor;
+    } else if (['opacity'].indexOf(tokenCategory) !== -1) {
+      // Get opacity
+      value = _.round(layer.style.opacity, 2);
+    } else if (tokenType === 'color') {
+      // Token type color
+      var _color4 = _.last(layer.style.fills).color;
+
+      var colorFormat = _color4.slice(-2) === "ff" ? _color4.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_color4);
+      value = colorFormat;
+    }
+  } else if (layerType === "Text") {
+    // ShapeLayers + Category match
+    if (tokenCategory === 'font-style') {
+      value = layer.style.fontStyle;
+    } else if (tokenCategory === 'font') {
+      if (tokenType === "...") {
+        value = layer.style.fontFamily;
+      } else if (tokenType === "number") {
+        value = layer.style.fontWeight * 100;
+      }
+    } else if (tokenCategory === 'font-weight') {
+      value = layer.style.fontWeight * 100;
+    } else if (tokenCategory === 'font-size') {
+      value = layer.style.fontSize + 'px';
+    } else if (tokenCategory === 'line-height') {
+      value = _.round(layer.style.lineHeight / layer.style.fontSize, 2);
+    } else if (tokenCategory === 'font-family') {
+      value = layer.style.fontFamily;
+    } else if (tokenCategory === 'text-color') {
+      var color = layer.style.textColor;
+      value = color.slice(-2) === "ff" ? color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(color);
+    } else if (tokenCategory === 'text-shadow') {
+      var _shadowArr2 = layer.style.shadows[0];
+
+      var _x2 = _shadowArr2.x == 0 ? 0 : _shadowArr2.x + "px";
+
+      var _y2 = _shadowArr2.y == 0 ? 0 : _shadowArr2.y + "px";
+
+      var _blur2 = _shadowArr2.blur == 0 ? 0 : _shadowArr2.blur + "px";
+
+      var _spread2 = _shadowArr2.spread == 0 ? 0 : _shadowArr2.spread + "px";
+
+      var _color5 = _shadowArr2.color.slice(-2) === "ff" ? _shadowArr2.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_shadowArr2.color);
+
+      value = _x2 + " " + _y2 + " " + _blur2 + " " + _spread2 + " " + _color5;
+    } else if (_.indexOf(['z-index', 'time', 'media-query'], tokenCategory) !== -1) {
+      value = layer.text;
+    }
+  }
+
+  return value;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (tokenValue);
+
+/***/ }),
+
 /***/ "./src/lib/values.js":
 /*!***************************!*\
   !*** ./src/lib/values.js ***!
@@ -17730,170 +18054,6 @@ var values = {
 
 /***/ }),
 
-/***/ "./src/lib/varNaming.js":
-/*!******************************!*\
-  !*** ./src/lib/varNaming.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-
-
-var varNaming = function varNaming(layer, naming) {
-  var layerNameArr = layer.name.split('/');
-  var layerName = '';
-
-  if (naming == 0) {
-    layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.kebabCase(layerNameArr);
-  } else if (naming == 1) {
-    layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(layerNameArr, '-'));
-  } else {
-    var stringPosition = naming - 2;
-
-    if (layerNameArr.length < stringPosition + 1) {
-      layerName = layerNameArr[0].toLowerCase().replace(/ /g, '');
-    } else {
-      layerName = layerNameArr[stringPosition].toLowerCase().replace(/ /g, '');
-    }
-  }
-
-  return layerName;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (varNaming);
-
-/***/ }),
-
-/***/ "./src/spacingTokens.js":
-/*!******************************!*\
-  !*** ./src/spacingTokens.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch */ "sketch");
-/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _lib_values__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/values */ "./src/lib/values.js");
-/* harmony import */ var _lib_formatObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/formatObject */ "./src/lib/formatObject.js");
-/* harmony import */ var _lib_varNaming__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/varNaming */ "./src/lib/varNaming.js");
-/* harmony import */ var _lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/dialogFields */ "./src/lib/dialogFields.js");
-
-
-
-
-
-
-var dropdownFileType;
-var dropdownFormat;
-var dropdownNames;
-var dropdownUnits;
-/**
- * 
- * Dialog
- * 
- */
-
-var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["dialogAlert"])("Export Spacing Variables"); // Creating the view
-
-  var viewWidth = 300;
-  var viewHeight = 225;
-  var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
-  alert.addAccessoryView(view); //Dropdown: File format
-
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
-  var names = ["SCSS", "Less", "CSS", "JSON", "JavaScript Object", "JavaScript Variables"];
-  dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(45, names, viewWidth, viewHeight);
-  view.addSubview(dropdownFileType); //Dropdown: Dimension 
-
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(90, 'Dimension:', viewWidth, viewHeight));
-  var types = ["Width", "Height"];
-  dropdownFormat = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(100, types, viewWidth, viewHeight);
-  view.addSubview(dropdownFormat); //Dropdown: Units 
-
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(145, 'Units:', viewWidth, viewHeight));
-  var units = ["Absolute (px)", "Relative (rem)"];
-  dropdownUnits = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(155, units, viewWidth, viewHeight);
-  view.addSubview(dropdownUnits); //Dropdown: Naming
-
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(200, 'Naming:', viewWidth, viewHeight));
-  dropdownNames = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(210, selectedLayers, viewWidth, viewHeight, true);
-  view.addSubview(dropdownNames);
-  return alert.runModal();
-};
-/**
- * 
- * Export exportTextstyles
- * 
- */
-
-
-var exportTextstyles = function exportTextstyles(selectedLayers, type, format, naming, units) {
-  var selectedCount = selectedLayers.length;
-  var fileTypes = NSArray.arrayWithArray([_lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype, nil]);
-  var savePanel = NSSavePanel.savePanel(); //savePanel.setCanChooseDirectories(true)
-  //savePanel.setCanCreateDirectories(true)
-
-  savePanel.setAllowedFileTypes(fileTypes);
-  savePanel.setNameFieldStringValue('spacing.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
-  savePanel.setPrompt("Save Spacing Variables");
-
-  if (savePanel.runModal() && selectedCount !== 0) {
-    var variables = {};
-
-    lodash__WEBPACK_IMPORTED_MODULE_1___default.a.forEach(selectedLayers, function (layer) {
-      var layerName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_4__["default"])(layer, naming);
-      var side = format == 'Width' ? layer.frame.width : layer.frame.height;
-      var space = units == 'Absolute (px)' ? side + 'px' : side / 16 + 'rem';
-      variables[layerName] = space;
-    });
-
-    var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_3__["default"])(variables, type, 'spacing'));
-    var file_path = savePanel.URL().path();
-    file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
-    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Spacing Variables Exported!');
-  }
-};
-/**
- * 
- * Main
- * 
- */
-
-
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  var doc = sketch__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument();
-  var selected = doc.selectedLayers.layers; // Only ShapePath layers - no text layers
-
-  var selectedLayers = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.filter(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reverse(selected), ['type', 'ShapePath']);
-
-  var selectedCount = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(selectedLayers);
-
-  if (selectedCount !== 0) {
-    var dialog = dialogBox(selectedLayers);
-    var exportType = dropdownFileType.titleOfSelectedItem();
-    var exportFormat = dropdownFormat.titleOfSelectedItem();
-    var exportNaming = dropdownNames.indexOfSelectedItem();
-    var exportUnits = dropdownUnits.titleOfSelectedItem();
-
-    if (dialog == "1000") {
-      exportTextstyles(selectedLayers, exportType, exportFormat, exportNaming, exportUnits);
-    }
-  } else {
-    sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.alert('Select layers', 'Please select shape layers first.');
-  }
-});
-
-/***/ }),
-
 /***/ "sketch":
 /*!*************************!*\
   !*** external "sketch" ***!
@@ -17916,4 +18076,4 @@ module.exports = require("sketch");
 }
 globalThis['onRun'] = __skpm_run.bind(this, 'default')
 
-//# sourceMappingURL=spacingTokens.js.map
+//# sourceMappingURL=exportTokens.js.map
