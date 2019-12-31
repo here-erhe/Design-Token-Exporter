@@ -2,17 +2,18 @@
 
 # Design Token Exporter
 
-**Export Design tokens from your Sketch project.**
+**Export Design Tokens from your Sketch project.**
 
 - You can export Design Token file either JSON or YAML format. Token file follow Salesforce [Theo](https://github.com/salesforce-ux/theo) spec.
 - Layers naming format is type/category/tokenname (e.g. color/background-color/color-background)
-- Available categories:
+
+**Available categories:**
 
 | Category                     | Sketch Layer type              | Value														|
 | ---------------------------  | ------------------------------ | --------------------------------------------------------- |
 | `spacing`/`space`/`spacer`   | Shape Layer            		| Layer height 												|
 | `sizing`/`size`              | Shape Layer            		| Layer height 												|
-| `font`                       | Text Layer             		| Type = number (Font weight) / Type = ... (Font Family)	|
+| `font`                       | Text Layer             		| Font weight (type=number) /  Font Family (type=...)		|
 | `font-style`                 | Text Layer            		 	| Font style												|
 | `font-weight`                | Text Layer           			| Font weight 												|
 | `font-size`                  | Text Layer             		| Font Size 												|
@@ -34,8 +35,10 @@
 | `time`                       | Text Layer                   	| Text layer value 											|
 | `media-query`                | Text Layer          			| Text layer value 											|
 | `z-index`                	   | Text Layer          			| Text layer value 											|
+| `any`                	   	   | Shape Layer          			| Fill color  (type=color)									|
 
-**Export Design variables from your Sketch project. You can export colors, text, spacing variables and text styles.**
+
+**Export variables from your Sketch project. You can export colors, text, spacing variables and text styles.**
 
 - You can choose file format: SCSS, CSS, LESS, JSON, JavaScript (Object/Variables)
 - You can choose color format: HEX or RGBA
@@ -54,6 +57,8 @@
 ### 1. Export Tokens
 
 Select layers or one artboard and go to `Plugins -> Design Token Exporter -> Export Tokens`
+
+![alt text](images/exportTokens.gif)
 
 **Example output - tokens.yml**
 

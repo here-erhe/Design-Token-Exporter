@@ -17638,20 +17638,18 @@ var exportTokens = function exportTokens(selectedLayers, type) {
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var doc = sketch__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument();
   var selected = [];
+  selected = doc.selectedLayers.layers;
 
-  if (doc.selectedLayers.layers[0].type === "Artboard") {
-    // Select Artboard layers
-    selected = doc.selectedLayers.layers[0].layers;
-  } else {
-    // Selected layers
-    selected = doc.selectedLayers.layers;
-  }
-
-  var selectedLayers = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reverse(selected);
-
-  var selectedCount = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(selectedLayers);
+  var selectedCount = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(selected);
 
   if (selectedCount !== 0) {
+    if (selected[0].type === "Artboard") {
+      // Select artboard layers
+      selected = selected[0].layers;
+    }
+
+    var selectedLayers = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reverse(selected);
+
     var dialog = dialogBox(selectedLayers);
     var exportType = dropdownFileType.titleOfSelectedItem();
 

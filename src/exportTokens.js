@@ -130,19 +130,18 @@ export default () => {
 
   let selected = [];
 
-  if(doc.selectedLayers.layers[0].type === "Artboard"){
-    // Select Artboard layers
-    selected = doc.selectedLayers.layers[0].layers;
-  }else{
-    // Selected layers
-    selected = doc.selectedLayers.layers;
-  }
+  selected = doc.selectedLayers.layers;
   
-
-  const selectedLayers = _.reverse(selected);
-  const selectedCount = _.size(selectedLayers);
+  const selectedCount = _.size(selected);
 
   if (selectedCount !== 0) {
+
+  if(selected[0].type === "Artboard"){ 
+    // Select artboard layers
+    selected = selected[0].layers;
+  }
+
+  const selectedLayers = _.reverse(selected);
 
   const dialog = dialogBox(selectedLayers);
   const exportType = dropdownFileType.titleOfSelectedItem();
