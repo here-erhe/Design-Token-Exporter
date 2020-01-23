@@ -5,7 +5,7 @@
 **Export Design Tokens from your Sketch project.**
 
 - You can export Design Token file either JSON or YAML format. Token file follow Salesforce [Theo](https://github.com/salesforce-ux/theo) spec.
-- Layers naming format is type/category/tokenname (e.g. color/background-color/color-background)
+- Layers naming format is type/category/tokenname (e.g. color/background-color/bg-light)
 
 **Available categories:**
 
