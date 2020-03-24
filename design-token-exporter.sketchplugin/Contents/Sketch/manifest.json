@@ -10,31 +10,31 @@
     {
       "name": "Export Tokens",
       "identifier": "tokens.tokens",
-      "script": "exportTokens.js",
+      "script": "__exportTokens.js",
       "description": "Export multiple multiple layers or one artboard"
     },
     {
       "name": "Export Colors Variables",
       "identifier": "tokens.colors",
-      "script": "colorTokens.js",
+      "script": "__colorTokens.js",
       "description": "Export selected layers"
     },
     {
       "name": "Export Text Variables",
       "identifier": "tokens.text",
-      "script": "textTokens.js",
+      "script": "__textTokens.js",
       "description": "Export selected layers"
     },
     {
       "name": "Export Spacing Variables",
       "identifier": "tokens.spacing",
-      "script": "spacingTokens.js",
+      "script": "__spacingTokens.js",
       "description": "Export selected layers"
     },
     {
       "name": "Export Text Styles",
       "identifier": "tokens.styles",
-      "script": "textObjects.js",
+      "script": "__textObjects.js",
       "description": "Export selected layers"
     }
   ],
@@ -50,7 +50,7 @@
       "tokens.styles"
     ]
   },
-  "version": "0.9.1",
+  "version": "1.0.0",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com/here-erhe/Design-Token-Exporter/master/.appcast.xml"
 }

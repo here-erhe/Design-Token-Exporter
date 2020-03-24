@@ -26,10 +26,10 @@
     "postinstall": "npm run build && skpm-link"
   },
   "devDependencies": {
-    "@skpm/builder": "^0.7.2"
+    "@skpm/builder": "^0.7.5"
   },
   "dependencies": {
     "json-to-pretty-yaml": "^1.2.2",
-    "lodash": "^4.17.14"
+    "lodash": "^4.17.15"
   }
 }
