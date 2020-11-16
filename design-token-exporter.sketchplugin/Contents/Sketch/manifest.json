@@ -32,6 +32,12 @@
       "description": "Export selected layers"
     },
     {
+      "name": "Export Radii Variables",
+      "identifier": "tokens.radii",
+      "script": "__radiiTokens.js",
+      "description": "Export selected layers"
+    },
+    {
       "name": "Export Text Styles",
       "identifier": "tokens.styles",
       "script": "__textObjects.js",
@@ -46,11 +52,12 @@
       "tokens.colors",
       "tokens.text",
       "tokens.spacing",
+      "tokens.radii",
       "-",
       "tokens.styles"
     ]
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com/here-erhe/Design-Token-Exporter/master/.appcast.xml"
 }

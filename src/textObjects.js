@@ -1,10 +1,16 @@
-import sketch from 'sketch'
-import _ from 'lodash'
+import sketch from 'sketch';
+import _ from 'lodash';
 
-import values from './lib/values'
-import varNaming from './lib/varNaming'
+import values from './lib/values';
+import varNaming from './lib/varNaming';
+import strings from './lib/strings';
 
-import {dialogAlert,fieldLabel, fieldSelect, fieldCheckbox} from './lib/dialogFields'
+import {
+    dialogAlert,
+    fieldLabel,
+    fieldSelect,
+    fieldCheckbox,
+} from './lib/dialogFields';
 
 let dropdownFileType;
 let dropdownUnits;
@@ -18,219 +24,316 @@ let checkLetterSpacing;
 let checkTextTransform;
 let checkColor;
 
-
 /**
- * 
+ *
  * Dialog
- * 
+ *
  */
 const dialogBox = (selectedLayers) => {
+    let alert = dialogAlert('Export Text Styles');
 
-  let alert = dialogAlert("Export Text Styles");
+    // Creating the view
+    let viewWidth = 300;
+    let viewHeight = 340;
 
-  // Creating the view
-  let viewWidth = 300;
-  let viewHeight = 340;
+    let view = NSView.alloc().initWithFrame(
+        NSMakeRect(0, 0, viewWidth, viewHeight)
+    );
+    alert.addAccessoryView(view);
 
-  let view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
-  alert.addAccessoryView(view);
+    //Dropdown: File format
 
-  //Dropdown: File format
+    view.addSubview(fieldLabel(35, 'File format:', viewWidth, viewHeight));
 
-  view.addSubview(fieldLabel(35, 'File format:', viewWidth, viewHeight));
+    let names = [
+        strings.values.es6Module,
+        strings.values.css,
+        strings.values.json,
+        strings.values.jsObject,
+    ];
+    dropdownFileType = fieldSelect(45, names, viewWidth, viewHeight);
 
-  let names = ["CSS","JSON","JavaScript Object"];
-  dropdownFileType = fieldSelect(45, names, viewWidth, viewHeight)
+    view.addSubview(dropdownFileType);
 
-  view.addSubview(dropdownFileType);
+    //Dropdown: Select units
 
-  //Dropdown: Select units 
+    view.addSubview(fieldLabel(90, 'Units:', viewWidth, viewHeight));
 
-  view.addSubview(fieldLabel(90, 'Units:', viewWidth, viewHeight));
+    let units = ['Relative (em/rem)', 'Absolute (px)'];
+    dropdownUnits = fieldSelect(100, units, viewWidth, viewHeight);
+    view.addSubview(dropdownUnits);
 
-  let units = [ "Absolute (px)", "Relative (em/rem)"];
-  dropdownUnits = fieldSelect(100, units, viewWidth, viewHeight)
-  view.addSubview(dropdownUnits);
-  
-  //Dropdown: Naming
- 
-  view.addSubview(fieldLabel(145, 'Naming:', viewWidth, viewHeight));
+    //Dropdown: Naming
 
-  dropdownNames = fieldSelect(155, selectedLayers, viewWidth, viewHeight, true)
-  view.addSubview(dropdownNames);
+    view.addSubview(fieldLabel(145, 'Naming:', viewWidth, viewHeight));
 
-  //Checkbox: Select values
+    dropdownNames = fieldSelect(
+        155,
+        selectedLayers,
+        viewWidth,
+        viewHeight,
+        true
+    );
+    view.addSubview(dropdownNames);
 
-  view.addSubview(fieldLabel(200, 'Export selected values:', viewWidth, viewHeight));
+    //Checkbox: Select values
 
-  checkFontFamily = fieldCheckbox(210, 'Font Family', viewWidth, viewHeight)
-  view.addSubview(checkFontFamily);
+    view.addSubview(
+        fieldLabel(200, 'Export selected values:', viewWidth, viewHeight)
+    );
 
-  checkFontSize = fieldCheckbox(230, 'Font Size', viewWidth, viewHeight, true)
-  view.addSubview(checkFontSize);
+    checkFontFamily = fieldCheckbox(210, 'Font Family', viewWidth, viewHeight);
+    view.addSubview(checkFontFamily);
 
-  checkFontWeight = fieldCheckbox(250, 'Font Weight', viewWidth, viewHeight, true)
-  view.addSubview(checkFontWeight);
+    checkFontSize = fieldCheckbox(
+        230,
+        'Font Size',
+        viewWidth,
+        viewHeight,
+        true
+    );
+    view.addSubview(checkFontSize);
 
-  checkLineHeight = fieldCheckbox(270, 'Line Height', viewWidth, viewHeight, true)
-  view.addSubview(checkLineHeight);
+    checkFontWeight = fieldCheckbox(
+        250,
+        'Font Weight',
+        viewWidth,
+        viewHeight,
+        true
+    );
+    view.addSubview(checkFontWeight);
 
-  checkLetterSpacing = fieldCheckbox(290, 'Letter Spacing', viewWidth, viewHeight, true)
-  view.addSubview(checkLetterSpacing);
+    checkLineHeight = fieldCheckbox(
+        270,
+        'Line Height',
+        viewWidth,
+        viewHeight,
+        true
+    );
+    view.addSubview(checkLineHeight);
 
-  checkTextTransform = fieldCheckbox(310, 'Text Transform', viewWidth, viewHeight, true)
-  view.addSubview(checkTextTransform);
+    checkLetterSpacing = fieldCheckbox(
+        290,
+        'Letter Spacing',
+        viewWidth,
+        viewHeight,
+        true
+    );
+    view.addSubview(checkLetterSpacing);
 
-  checkColor = fieldCheckbox(330, 'Color', viewWidth, viewHeight)
-  view.addSubview(checkColor);
+    checkTextTransform = fieldCheckbox(
+        310,
+        'Text Transform',
+        viewWidth,
+        viewHeight,
+        true
+    );
+    view.addSubview(checkTextTransform);
 
-  
+    checkColor = fieldCheckbox(330, 'Color', viewWidth, viewHeight);
+    view.addSubview(checkColor);
 
-  return alert.runModal(); 
-
-}
+    return alert.runModal();
+};
 
 /**
- * 
+ *
  * Export exportTextstyles
- * 
+ *
  */
 const exportTextstyles = (selectedLayers, type, units, naming) => {
+    const selectedCount = selectedLayers.length;
+    console.log(type);
 
+    let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
 
-  const selectedCount = selectedLayers.length;
+    let savePanel = NSSavePanel.savePanel();
+    //savePanel.setCanChooseDirectories(true)
+    //savePanel.setCanCreateDirectories(true)
+    savePanel.setAllowedFileTypes(fileTypes);
 
-  let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
+    savePanel.setNameFieldStringValue('textstyles.' + values[type].filetype);
+    savePanel.setPrompt('Save Text Styles');
 
-  let savePanel = NSSavePanel.savePanel()
-  //savePanel.setCanChooseDirectories(true)
-  //savePanel.setCanCreateDirectories(true)
-  savePanel.setAllowedFileTypes(fileTypes)
+    if (savePanel.runModal() && selectedCount !== 0) {
+        let texts = '';
 
-  savePanel.setNameFieldStringValue('textstyles.' + values[type].filetype)
-  savePanel.setPrompt("Save Text Styles");
+        if (type == strings.values.json) {
+            texts = {};
+        } else if (type == strings.values.jsObject) {
+            texts = 'const textStyles = {\n';
+        } else if (type == strings.values.es6Module) {
+            texts = 'export const textStyles = {\n';
+        } else {
+            texts = '';
+        }
 
-  if (savePanel.runModal() && selectedCount !== 0) {
+        _.forEach(selectedLayers, function (layer) {
+            let layerName = varNaming(layer, naming);
 
-    
-    let texts = '';
+            let fontFamily = layer.style.fontFamily;
+            let fontSize =
+                units == 'Absolute (px)'
+                    ? layer.style.fontSize + 'px'
+                    : layer.style.fontSize / 16 + 'rem';
+            let fontWeight = layer.style.fontWeight * 100;
+            let lineHeight =
+                units == 'Absolute (px)'
+                    ? _.round(layer.style.lineHeight, 2) + 'px'
+                    : _.round(layer.style.lineHeight / layer.style.fontSize, 2);
+            let letterSpacing =
+                layer.style.kerning == null
+                    ? 'normal'
+                    : units == 'Absolute (px)'
+                    ? _.round(layer.style.kerning, 2) + 'px'
+                    : _.round(layer.style.kerning / layer.style.fontSize, 2) +
+                      'em';
+            let textTransform = layer.style.textTransform;
 
-    if(type == 'JSON'){
-      texts = {}
-    }else if(type == 'JavaScript Object'){
-      texts = 'const textStyles = {\n';
-    }else{
-      texts = '';
+            let textColor = layer.style.textColor.substr(0, 7);
+
+            // JSON
+            if (type == strings.values.json) {
+                texts[layerName] = {};
+
+                if (checkFontFamily.stringValue() == 1)
+                    texts[layerName]['fontFamily'] = fontFamily;
+                if (checkFontSize.stringValue() == 1)
+                    texts[layerName]['fontSize'] = fontSize;
+                if (checkFontWeight.stringValue() == 1)
+                    texts[layerName]['fontWeight'] = fontWeight;
+                if (checkLineHeight.stringValue() == 1)
+                    texts[layerName]['lineHeight'] = lineHeight;
+                if (checkLetterSpacing.stringValue() == 1)
+                    texts[layerName]['letterSpacing'] = letterSpacing;
+                if (checkTextTransform.stringValue() == 1)
+                    texts[layerName]['textTransform'] = textTransform;
+                if (checkColor.stringValue() == 1)
+                    texts[layerName]['color'] = textColor;
+            } else if (
+                type == strings.values.jsObject ||
+                type == strings.values.es6Module
+            ) {
+                // JS Object
+                texts =
+                    type === strings.values.es6Module
+                        ? texts.concat('\t"' + layerName + '": {\n')
+                        : texts.concat('\t' + layerName + ': {\n');
+
+                if (checkFontFamily.stringValue() == 1)
+                    texts = texts.concat(
+                        '\t\tfontFamily: "' + fontFamily + '",\n'
+                    );
+                if (checkFontSize.stringValue() == 1)
+                    texts = texts.concat('\t\tfontSize: "' + fontSize + '",\n');
+                if (checkFontWeight.stringValue() == 1)
+                    texts = texts.concat(
+                        '\t\tfontWeight: ' + fontWeight + ',\n'
+                    );
+                if (checkLineHeight.stringValue() == 1)
+                    texts = texts.concat(
+                        '\t\tlineHeight: "' + lineHeight + '",\n'
+                    );
+                if (checkLetterSpacing.stringValue() == 1)
+                    texts = texts.concat(
+                        '\t\tletterSpacing: "' + letterSpacing + '",\n'
+                    );
+                if (checkTextTransform.stringValue() == 1)
+                    texts = texts.concat(
+                        '\t\ttextTransform: "' + textTransform + '",\n'
+                    );
+                if (checkColor.stringValue() == 1)
+                    texts = texts.concat('\t\tcolor: "' + textColor + '",\n');
+
+                texts = texts.concat('\t},\n');
+            } else if (type == strings.values.css) {
+                // CSS
+                texts = texts.concat('.' + layerName + '{\n');
+                if (checkFontFamily.stringValue() == 1)
+                    texts = texts.concat(
+                        '\tfont-family: "' + fontFamily + '";\n'
+                    );
+                if (checkFontSize.stringValue() == 1)
+                    texts = texts.concat('\tfont-size: ' + fontSize + ';\n');
+                if (checkFontWeight.stringValue() == 1)
+                    texts = texts.concat(
+                        '\tfont-weight: ' + fontWeight + ';\n'
+                    );
+                if (checkLineHeight.stringValue() == 1)
+                    texts = texts.concat(
+                        '\tline-height: ' + lineHeight + ';\n'
+                    );
+                if (checkLetterSpacing.stringValue() == 1)
+                    texts = texts.concat(
+                        '\tletter-spacing: ' + letterSpacing + ';\n'
+                    );
+                if (checkTextTransform.stringValue() == 1)
+                    texts = texts.concat(
+                        '\ttext-transform: ' + textTransform + ';\n'
+                    );
+                if (checkColor.stringValue() == 1)
+                    texts = texts.concat('\tcolor: ' + textColor + ';\n');
+                texts = texts.concat('}\n');
+            }
+        });
+
+        let file = '';
+
+        if (type == strings.values.json) {
+            let jsonObj = { textstyles: texts };
+            file = NSString.stringWithString(
+                JSON.stringify(jsonObj, null, '\t')
+            );
+        } else if (
+            type == strings.values.jsObject ||
+            type == strings.values.es6Module
+        ) {
+            texts = texts.concat('}');
+            file = NSString.stringWithString(texts);
+        } else {
+            file = NSString.stringWithString(texts);
+        }
+
+        let file_path = savePanel.URL().path();
+        file.writeToFile_atomically_encoding_error(
+            file_path,
+            true,
+            NSUTF8StringEncoding,
+            null
+        );
+
+        sketch.UI.message('Text Styles Exported!');
     }
-
-    _.forEach(selectedLayers, function (layer) {
-
-      
-        let layerName = varNaming(layer, naming);
-
-        let fontFamily = layer.style.fontFamily;
-        let fontSize = units == 'Absolute (px)' ? layer.style.fontSize + 'px' : layer.style.fontSize / 16 + 'rem';
-        let fontWeight = layer.style.fontWeight * 100;
-        let lineHeight = units == 'Absolute (px)' ? _.round(layer.style.lineHeight, 2) + 'px' : _.round(layer.style.lineHeight / layer.style.fontSize, 2);
-        let letterSpacing = layer.style.kerning == null ? 'normal' :  units == 'Absolute (px)' ? _.round(layer.style.kerning, 2) + 'px' : _.round(layer.style.kerning / layer.style.fontSize, 2) + 'em';
-        let textTransform = layer.style.textTransform;
-
-        let textColor = layer.style.textColor.substr(0, 7);
-
-
-
-
-      // JSON
-      if(type == 'JSON'){
-
-        texts[layerName] = {};
-
-        if(checkFontFamily.stringValue() == 1) texts[layerName]['fontFamily'] = fontFamily;
-        if(checkFontSize.stringValue() == 1) texts[layerName]['fontSize'] = fontSize;
-        if(checkFontWeight.stringValue() == 1) texts[layerName]['fontWeight'] = fontWeight;
-        if(checkLineHeight.stringValue() == 1) texts[layerName]['lineHeight'] = lineHeight;
-        if(checkLetterSpacing.stringValue() == 1) texts[layerName]['letterSpacing'] = letterSpacing;
-        if(checkTextTransform.stringValue() == 1) texts[layerName]['textTransform'] = textTransform;
-        if(checkColor.stringValue() == 1) texts[layerName]['color'] = textColor;
-
-        
-      }else if(type == 'JavaScript Object'){
-        // JS Object
-        texts = texts.concat('\t"' + layerName + '": {\n');
-          if(checkFontFamily.stringValue() == 1) texts = texts.concat('\t\tfontFamily: "' + fontFamily +'",\n');
-          if(checkFontSize.stringValue() == 1) texts = texts.concat('\t\tfontSize: "' + fontSize +'",\n');
-          if(checkFontWeight.stringValue() == 1) texts = texts.concat('\t\tfontWeight: ' + fontWeight +',\n');
-          if(checkLineHeight.stringValue() == 1) texts = texts.concat('\t\tlineHeight: "' + lineHeight + '",\n');
-          if(checkLetterSpacing.stringValue() == 1) texts = texts.concat('\t\tletterSpacing: "' + letterSpacing + '",\n');
-          if(checkTextTransform.stringValue() == 1) texts = texts.concat('\t\ttextTransform: "' + textTransform + '",\n');
-          if(checkColor.stringValue() == 1) texts = texts.concat('\t\tcolor: "' + textColor + '",\n');
-
-        texts = texts.concat( '\t},\n');
-
-      }else if(type == 'CSS'){
-        // CSS
-        texts = texts.concat('.' + layerName + '{\n');
-          if(checkFontFamily.stringValue() == 1) texts = texts.concat('\tfont-family: "' + fontFamily +'";\n');
-          if(checkFontSize.stringValue() == 1) texts = texts.concat('\tfont-size: ' + fontSize +';\n');
-          if(checkFontWeight.stringValue() == 1) texts = texts.concat('\tfont-weight: ' + fontWeight +';\n');
-          if(checkLineHeight.stringValue() == 1) texts = texts.concat('\tline-height: ' + lineHeight + ';\n');
-          if(checkLetterSpacing.stringValue() == 1) texts = texts.concat('\tletter-spacing: ' + letterSpacing + ';\n');
-          if(checkTextTransform.stringValue() == 1) texts = texts.concat('\ttext-transform: ' + textTransform + ';\n');
-          if(checkColor.stringValue() == 1) texts = texts.concat('\tcolor: ' + textColor + ';\n');
-        texts = texts.concat( '}\n');
-
-      }
-
-    })
-
-    let file = '';
-
-    if(type == 'JSON'){
-      let jsonObj = { "textstyles": texts };
-      file = NSString.stringWithString(JSON.stringify(jsonObj, null, "\t"));
-    }else if(type == 'JavaScript Object'){
-      texts = texts.concat('}');
-      file = NSString.stringWithString(texts);
-    }else{
-      file = NSString.stringWithString(texts);
-    }
-
-    let file_path = savePanel.URL().path();
-    file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
-
-    sketch.UI.message('Text Styles Exported!');
-   }
-
-}
+};
 
 /**
- * 
+ *
  * Main
- * 
+ *
  */
-export default () => { 
+export default () => {
+    const doc = sketch.getSelectedDocument();
+    const selected = doc.selectedLayers.layers;
 
-  const doc = sketch.getSelectedDocument();
-  const selected = doc.selectedLayers.layers;
+    // Only Text layers - no shape layers
+    const selectedLayers = _.filter(_.reverse(selected), ['type', 'Text']);
+    const selectedCount = _.size(selectedLayers);
 
-  // Only Text layers - no shape layers
-  const selectedLayers = _.filter(_.reverse(selected), ['type', 'Text']);
-  const selectedCount = _.size(selectedLayers);
+    if (selectedCount !== 0) {
+        const dialog = dialogBox(selectedLayers);
+        const exportType = dropdownFileType.titleOfSelectedItem();
+        const exportUnits = dropdownUnits.titleOfSelectedItem();
+        const exportNaming = dropdownNames.indexOfSelectedItem();
 
-  if (selectedCount !== 0) {
-
-  const dialog = dialogBox(selectedLayers);
-  const exportType = dropdownFileType.titleOfSelectedItem();
-  const exportUnits = dropdownUnits.titleOfSelectedItem();
-  const exportNaming = dropdownNames.indexOfSelectedItem();
-
-
-    if(dialog == "1000"){
-      exportTextstyles(selectedLayers, exportType, exportUnits, exportNaming);
+        if (dialog == '1000') {
+            exportTextstyles(
+                selectedLayers,
+                exportType,
+                exportUnits,
+                exportNaming
+            );
+        }
+    } else {
+        sketch.UI.alert('Select layers', 'Please select text layers first.');
     }
-
-  }else{
-    sketch.UI.alert('Select layers','Please select text layers first.');
-  }
-
-}
+};

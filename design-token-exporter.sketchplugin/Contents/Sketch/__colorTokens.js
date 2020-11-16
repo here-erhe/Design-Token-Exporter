@@ -17517,9 +17517,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_values__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/values */ "./src/lib/values.js");
 /* harmony import */ var _lib_hexAToRGBA__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/hexAToRGBA */ "./src/lib/hexAToRGBA.js");
-/* harmony import */ var _lib_formatObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/formatObject */ "./src/lib/formatObject.js");
-/* harmony import */ var _lib_varNaming__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/varNaming */ "./src/lib/varNaming.js");
-/* harmony import */ var _lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lib/dialogFields */ "./src/lib/dialogFields.js");
+/* harmony import */ var _lib_hexToHSLA__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/hexToHSLA */ "./src/lib/hexToHSLA.js");
+/* harmony import */ var _lib_formatObject__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/formatObject */ "./src/lib/formatObject.js");
+/* harmony import */ var _lib_varNaming__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lib/varNaming */ "./src/lib/varNaming.js");
+/* harmony import */ var _lib_strings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./lib/strings */ "./src/lib/strings.js");
+/* harmony import */ var _lib_dialogFields__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./lib/dialogFields */ "./src/lib/dialogFields.js");
+
+
 
 
 
@@ -17531,38 +17535,45 @@ var dropdownFileType;
 var dropdownFormat;
 var dropdownNames;
 /**
- * 
+ *
  * Dialog
- * 
+ *
  */
 
 var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["dialogAlert"])("Export Color Variables"); // Creating the view
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_8__["dialogAlert"])('Export Color Variables'); // Creating the view
 
   var viewWidth = 300;
   var viewHeight = 180;
   var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
   alert.addAccessoryView(view); //Dropdown: File format
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
-  var names = ["SCSS", "Less", "CSS", "JSON", "JavaScript Object", "JavaScript Variables"];
-  dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldSelect"])(45, names, viewWidth, viewHeight);
-  view.addSubview(dropdownFileType); //Dropdown: Color value 
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_8__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
+  var names = [_lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.es6Module, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.es6Module, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.scss, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.less, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.css, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.json, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.jsObject, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.jsVars];
+  dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_8__["fieldSelect"])(45, names, viewWidth, viewHeight);
+  view.addSubview(dropdownFileType); //Dropdown: Color value
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldLabel"])(90, 'Color value:', viewWidth, viewHeight));
-  var types = ["HEX", "RGBA"];
-  dropdownFormat = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldSelect"])(100, types, viewWidth, viewHeight);
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_8__["fieldLabel"])(90, 'Color value:', viewWidth, viewHeight));
+  var types = [_lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.hsl, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.hex, _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.rgba];
+  dropdownFormat = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_8__["fieldSelect"])(100, types, viewWidth, viewHeight);
   view.addSubview(dropdownFormat); //Dropdown: Naming
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldLabel"])(145, 'Naming:', viewWidth, viewHeight));
-  dropdownNames = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldSelect"])(155, selectedLayers, viewWidth, viewHeight, true);
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_8__["fieldLabel"])(145, 'Naming:', viewWidth, viewHeight));
+  dropdownNames = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_8__["fieldSelect"])(155, selectedLayers, viewWidth, viewHeight, true);
   view.addSubview(dropdownNames);
   return alert.runModal();
 };
+
+var formatColorFill = function formatColorFill(format, color) {
+  var hex = color.substr(0, 7);
+  if (format == _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.hex) return hex;
+  if (format == _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.rgba) return Object(_lib_hexAToRGBA__WEBPACK_IMPORTED_MODULE_3__["default"])(hex);
+  if (format == _lib_strings__WEBPACK_IMPORTED_MODULE_7__["default"].values.hsl) return Object(_lib_hexToHSLA__WEBPACK_IMPORTED_MODULE_4__["default"])(color);
+};
 /**
- * 
+ *
  * Export exportColors
- * 
+ *
  */
 
 
@@ -17576,8 +17587,8 @@ var exportColors = function exportColors(selectedLayers, type, format, naming) {
       var fillArray = layer.style.fills;
 
       if (lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(fillArray) != 0 && lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).fillType == 'Color' && lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).enabled) {
-        var colorName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_5__["default"])(layer, naming);
-        var colorFill = format == 'HEX' ? lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).color.substr(0, 7) : Object(_lib_hexAToRGBA__WEBPACK_IMPORTED_MODULE_3__["default"])(lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).color);
+        var colorName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_6__["default"])(layer, naming);
+        var colorFill = formatColorFill(format, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.last(fillArray).color);
         variables[colorName] = colorFill;
       }
     });
@@ -17591,9 +17602,9 @@ var exportColors = function exportColors(selectedLayers, type, format, naming) {
 
       savePanel.setAllowedFileTypes(fileTypes);
       savePanel.setNameFieldStringValue('colors.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
-      savePanel.setPrompt("Save Color Variables");
+      savePanel.setPrompt('Save Color Variables');
       savePanel.runModal();
-      var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_4__["default"])(variables, type, 'colors'));
+      var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_5__["default"])(variables, type, 'colors'));
       var file_path = savePanel.URL().path();
       file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
       sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Color Variables Exported!');
@@ -17601,9 +17612,9 @@ var exportColors = function exportColors(selectedLayers, type, format, naming) {
   }
 };
 /**
- * 
+ *
  * Main
- * 
+ *
  */
 
 
@@ -17621,7 +17632,7 @@ var exportColors = function exportColors(selectedLayers, type, format, naming) {
     var exportFormat = dropdownFormat.titleOfSelectedItem();
     var exportNaming = dropdownNames.indexOfSelectedItem();
 
-    if (dialog == "1000") {
+    if (dialog == '1000') {
       exportColors(selectedLayers, exportType, exportFormat, exportNaming);
     }
   } else {
@@ -17648,13 +17659,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
 var dialogAlert = function dialogAlert(title) {
-  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Choose variables format.";
+  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Choose variables format.';
   var alert = COSAlertWindow.new();
-  alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+  alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed('icon.png').path()));
   alert.setMessageText(title);
   alert.setInformativeText(desc);
-  alert.addButtonWithTitle("Ok");
-  alert.addButtonWithTitle("Cancel");
+  alert.addButtonWithTitle('Ok');
+  alert.addButtonWithTitle('Cancel');
   return alert;
 };
 var fieldLabel = function fieldLabel(pos, title, viewWidth, viewHeight) {
@@ -17680,8 +17691,8 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
 
     var camelCase = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(sliceArr, '-'));
 
-    select.addItemWithTitle(kebabCase);
     select.addItemWithTitle(camelCase);
+    select.addItemWithTitle(kebabCase);
 
     if (sliceArr.length > 1) {
       lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(sliceArr, function (slice) {
@@ -17722,8 +17733,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _values__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./values */ "./src/lib/values.js");
-/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! json-to-pretty-yaml */ "./node_modules/json-to-pretty-yaml/index.js");
-/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./strings */ "./src/lib/strings.js");
+/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! json-to-pretty-yaml */ "./node_modules/json-to-pretty-yaml/index.js");
+/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -17731,17 +17744,19 @@ __webpack_require__.r(__webpack_exports__);
 var formatObject = function formatObject(obj, type, jsonTitle) {
   var string = '';
 
-  if (type == 'JSON') {
+  if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.json) {
     var jsonObj = {};
     jsonObj[lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle)] = obj;
-    string = JSON.stringify(jsonObj, null, "\t");
-  } else if (type == 'YAML') {
+    string = JSON.stringify(jsonObj, null, '\t');
+  } else if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.yaml) {
     var _jsonObj = {};
     _jsonObj[lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle)] = obj;
-    string = json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2___default.a.stringify(_jsonObj);
+    string = json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3___default.a.stringify(_jsonObj);
   } else {
-    if (type == 'JavaScript Object') {
-      string = "const " + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + " = {\n";
+    if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.jsObject) {
+      string = 'const ' + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + ' = {\n';
+    } else if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.es6Module) {
+      string = 'export const ' + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + ' = {\n';
     } else {
       string = _values__WEBPACK_IMPORTED_MODULE_1__["default"][type].lineStart;
     }
@@ -17775,22 +17790,108 @@ var hexAToRGBA = function hexAToRGBA(h) {
       a = 1;
 
   if (h.length == 5) {
-    r = "0x" + h[1] + h[1];
-    g = "0x" + h[2] + h[2];
-    b = "0x" + h[3] + h[3];
-    a = "0x" + h[4] + h[4];
+    r = '0x' + h[1] + h[1];
+    g = '0x' + h[2] + h[2];
+    b = '0x' + h[3] + h[3];
+    a = '0x' + h[4] + h[4];
   } else if (h.length == 9) {
-    r = "0x" + h[1] + h[2];
-    g = "0x" + h[3] + h[4];
-    b = "0x" + h[5] + h[6];
-    a = "0x" + h[7] + h[8];
+    r = '0x' + h[1] + h[2];
+    g = '0x' + h[3] + h[4];
+    b = '0x' + h[5] + h[6];
+    a = '0x' + h[7] + h[8];
   }
 
   a = +(a / 255).toFixed(2);
-  return "rgba(" + +r + "," + +g + "," + +b + "," + a + ")";
+  return 'rgba(' + +r + ',' + +g + ',' + +b + ',' + a + ')';
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (hexAToRGBA);
+
+/***/ }),
+
+/***/ "./src/lib/hexToHSLA.js":
+/*!******************************!*\
+  !*** ./src/lib/hexToHSLA.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var hexToHSLA = function hexToHSLA(H) {
+  var ex = /^#([\da-f]{4}){1,2}$/i;
+
+  if (ex.test(H)) {
+    var r = 0,
+        g = 0,
+        b = 0,
+        a = 1; // 4 digits
+
+    if (H.length == 5) {
+      r = '0x' + H[1] + H[1];
+      g = '0x' + H[2] + H[2];
+      b = '0x' + H[3] + H[3];
+      a = '0x' + H[4] + H[4]; // 8 digits
+    } else if (H.length == 9) {
+      r = '0x' + H[1] + H[2];
+      g = '0x' + H[3] + H[4];
+      b = '0x' + H[5] + H[6];
+      a = '0x' + H[7] + H[8];
+    } // normal conversion to HSLA
+
+
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    var cmin = Math.min(r, g, b),
+        cmax = Math.max(r, g, b),
+        delta = cmax - cmin,
+        h = 0,
+        s = 0,
+        l = 0;
+    if (delta == 0) h = 0;else if (cmax == r) h = (g - b) / delta % 6;else if (cmax == g) h = (b - r) / delta + 2;else h = (r - g) / delta + 4;
+    h = Math.round(h * 60);
+    if (h < 0) h += 360;
+    l = (cmax + cmin) / 2;
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+    a = (a / 255).toFixed(3);
+    return 'hsla(' + h + ',' + s + '%,' + l + '%,' + a + ')';
+  } else {
+    return 'Invalid input color';
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (hexToHSLA);
+
+/***/ }),
+
+/***/ "./src/lib/strings.js":
+/*!****************************!*\
+  !*** ./src/lib/strings.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var strings = {
+  values: {
+    jsObject: 'JavaScript Object',
+    jsVars: 'JavaScript Variables',
+    es6Module: 'ES6 Module',
+    scss: 'SCSS',
+    less: 'Less',
+    css: 'CSS',
+    json: 'JSON',
+    yaml: 'YAML',
+    hsl: 'HSL',
+    hex: 'HEX',
+    rgba: 'RGBA'
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (strings);
 
 /***/ }),
 
@@ -17803,62 +17904,72 @@ var hexAToRGBA = function hexAToRGBA(h) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./strings */ "./src/lib/strings.js");
+
 var values = {
-  'JavaScript Object': {
-    lineStart: "",
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.jsObject]: {
+    lineStart: '',
     prefix: "   '",
     diviner: "': '",
     postfix: "',\n",
-    lineEnd: "}",
-    filetype: "js"
+    lineEnd: '}',
+    filetype: 'js'
   },
-  'JavaScript Variables': {
-    lineStart: "",
-    prefix: "const ",
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.jsVars]: {
+    lineStart: '',
+    prefix: 'const ',
     diviner: " = '",
     postfix: "';\n",
-    lineEnd: "",
-    filetype: "js"
+    lineEnd: '',
+    filetype: 'js'
   },
-  'SCSS': {
-    lineStart: "",
-    prefix: "$",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "",
-    filetype: "scss"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.es6Module]: {
+    lineStart: '',
+    prefix: ' ',
+    diviner: ": '",
+    postfix: "',\n",
+    lineEnd: '}',
+    filetype: 'js'
   },
-  'Less': {
-    lineStart: "",
-    prefix: "@",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "",
-    filetype: "less"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.scss]: {
+    lineStart: '',
+    prefix: '$',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '',
+    filetype: 'SCSS'
   },
-  'CSS': {
-    lineStart: ":root {\n",
-    prefix: "   --",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "}",
-    filetype: "css"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.less]: {
+    lineStart: '',
+    prefix: '@',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '',
+    filetype: 'less'
   },
-  'JSON': {
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.css]: {
+    lineStart: ':root {\n',
+    prefix: '   --',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '}',
+    filetype: 'css'
+  },
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.json]: {
     lineStart: {},
-    prefix: "",
-    diviner: "",
-    postfix: "",
-    lineEnd: "",
-    filetype: "json"
+    prefix: '',
+    diviner: '',
+    postfix: '',
+    lineEnd: '',
+    filetype: 'json'
   },
-  'YAML': {
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.yaml]: {
     lineStart: {},
-    prefix: "",
-    diviner: "",
-    postfix: "",
-    lineEnd: "",
-    filetype: "yml"
+    prefix: '',
+    diviner: '',
+    postfix: '',
+    lineEnd: '',
+    filetype: 'yml'
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (values);
@@ -17882,9 +17993,9 @@ var varNaming = function varNaming(layer, naming) {
   var layerNameArr = layer.name.split('/');
   var layerName = '';
 
-  if (naming == 0) {
+  if (naming == 1) {
     layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.kebabCase(layerNameArr);
-  } else if (naming == 1) {
+  } else if (naming == 0) {
     layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(layerNameArr, '-'));
   } else {
     var stringPosition = naming - 2;

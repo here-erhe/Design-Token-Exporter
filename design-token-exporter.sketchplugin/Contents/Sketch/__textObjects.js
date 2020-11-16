@@ -17259,13 +17259,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
 var dialogAlert = function dialogAlert(title) {
-  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Choose variables format.";
+  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Choose variables format.';
   var alert = COSAlertWindow.new();
-  alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+  alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed('icon.png').path()));
   alert.setMessageText(title);
   alert.setInformativeText(desc);
-  alert.addButtonWithTitle("Ok");
-  alert.addButtonWithTitle("Cancel");
+  alert.addButtonWithTitle('Ok');
+  alert.addButtonWithTitle('Cancel');
   return alert;
 };
 var fieldLabel = function fieldLabel(pos, title, viewWidth, viewHeight) {
@@ -17291,8 +17291,8 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
 
     var camelCase = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(sliceArr, '-'));
 
-    select.addItemWithTitle(kebabCase);
     select.addItemWithTitle(camelCase);
+    select.addItemWithTitle(kebabCase);
 
     if (sliceArr.length > 1) {
       lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(sliceArr, function (slice) {
@@ -17321,6 +17321,34 @@ var fieldCheckbox = function fieldCheckbox(pos, label, viewWidth, viewHeight) {
 
 /***/ }),
 
+/***/ "./src/lib/strings.js":
+/*!****************************!*\
+  !*** ./src/lib/strings.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var strings = {
+  values: {
+    jsObject: 'JavaScript Object',
+    jsVars: 'JavaScript Variables',
+    es6Module: 'ES6 Module',
+    scss: 'SCSS',
+    less: 'Less',
+    css: 'CSS',
+    json: 'JSON',
+    yaml: 'YAML',
+    hsl: 'HSL',
+    hex: 'HEX',
+    rgba: 'RGBA'
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (strings);
+
+/***/ }),
+
 /***/ "./src/lib/values.js":
 /*!***************************!*\
   !*** ./src/lib/values.js ***!
@@ -17330,62 +17358,72 @@ var fieldCheckbox = function fieldCheckbox(pos, label, viewWidth, viewHeight) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./strings */ "./src/lib/strings.js");
+
 var values = {
-  'JavaScript Object': {
-    lineStart: "",
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.jsObject]: {
+    lineStart: '',
     prefix: "   '",
     diviner: "': '",
     postfix: "',\n",
-    lineEnd: "}",
-    filetype: "js"
+    lineEnd: '}',
+    filetype: 'js'
   },
-  'JavaScript Variables': {
-    lineStart: "",
-    prefix: "const ",
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.jsVars]: {
+    lineStart: '',
+    prefix: 'const ',
     diviner: " = '",
     postfix: "';\n",
-    lineEnd: "",
-    filetype: "js"
+    lineEnd: '',
+    filetype: 'js'
   },
-  'SCSS': {
-    lineStart: "",
-    prefix: "$",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "",
-    filetype: "scss"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.es6Module]: {
+    lineStart: '',
+    prefix: ' ',
+    diviner: ": '",
+    postfix: "',\n",
+    lineEnd: '}',
+    filetype: 'js'
   },
-  'Less': {
-    lineStart: "",
-    prefix: "@",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "",
-    filetype: "less"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.scss]: {
+    lineStart: '',
+    prefix: '$',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '',
+    filetype: 'SCSS'
   },
-  'CSS': {
-    lineStart: ":root {\n",
-    prefix: "   --",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "}",
-    filetype: "css"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.less]: {
+    lineStart: '',
+    prefix: '@',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '',
+    filetype: 'less'
   },
-  'JSON': {
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.css]: {
+    lineStart: ':root {\n',
+    prefix: '   --',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '}',
+    filetype: 'css'
+  },
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.json]: {
     lineStart: {},
-    prefix: "",
-    diviner: "",
-    postfix: "",
-    lineEnd: "",
-    filetype: "json"
+    prefix: '',
+    diviner: '',
+    postfix: '',
+    lineEnd: '',
+    filetype: 'json'
   },
-  'YAML': {
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.yaml]: {
     lineStart: {},
-    prefix: "",
-    diviner: "",
-    postfix: "",
-    lineEnd: "",
-    filetype: "yml"
+    prefix: '',
+    diviner: '',
+    postfix: '',
+    lineEnd: '',
+    filetype: 'yml'
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (values);
@@ -17409,9 +17447,9 @@ var varNaming = function varNaming(layer, naming) {
   var layerNameArr = layer.name.split('/');
   var layerName = '';
 
-  if (naming == 0) {
+  if (naming == 1) {
     layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.kebabCase(layerNameArr);
-  } else if (naming == 1) {
+  } else if (naming == 0) {
     layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(layerNameArr, '-'));
   } else {
     var stringPosition = naming - 2;
@@ -17445,7 +17483,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_values__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/values */ "./src/lib/values.js");
 /* harmony import */ var _lib_varNaming__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/varNaming */ "./src/lib/varNaming.js");
-/* harmony import */ var _lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/dialogFields */ "./src/lib/dialogFields.js");
+/* harmony import */ var _lib_strings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/strings */ "./src/lib/strings.js");
+/* harmony import */ var _lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/dialogFields */ "./src/lib/dialogFields.js");
+
 
 
 
@@ -17462,74 +17502,77 @@ var checkLetterSpacing;
 var checkTextTransform;
 var checkColor;
 /**
- * 
+ *
  * Dialog
- * 
+ *
  */
 
 var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["dialogAlert"])("Export Text Styles"); // Creating the view
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["dialogAlert"])('Export Text Styles'); // Creating the view
 
   var viewWidth = 300;
   var viewHeight = 340;
   var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
   alert.addAccessoryView(view); //Dropdown: File format
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
-  var names = ["CSS", "JSON", "JavaScript Object"];
-  dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldSelect"])(45, names, viewWidth, viewHeight);
-  view.addSubview(dropdownFileType); //Dropdown: Select units 
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
+  var names = [_lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.es6Module, _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.css, _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.json, _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.jsObject];
+  dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(45, names, viewWidth, viewHeight);
+  view.addSubview(dropdownFileType); //Dropdown: Select units
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldLabel"])(90, 'Units:', viewWidth, viewHeight));
-  var units = ["Absolute (px)", "Relative (em/rem)"];
-  dropdownUnits = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldSelect"])(100, units, viewWidth, viewHeight);
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(90, 'Units:', viewWidth, viewHeight));
+  var units = ['Relative (em/rem)', 'Absolute (px)'];
+  dropdownUnits = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(100, units, viewWidth, viewHeight);
   view.addSubview(dropdownUnits); //Dropdown: Naming
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldLabel"])(145, 'Naming:', viewWidth, viewHeight));
-  dropdownNames = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldSelect"])(155, selectedLayers, viewWidth, viewHeight, true);
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(145, 'Naming:', viewWidth, viewHeight));
+  dropdownNames = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(155, selectedLayers, viewWidth, viewHeight, true);
   view.addSubview(dropdownNames); //Checkbox: Select values
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldLabel"])(200, 'Export selected values:', viewWidth, viewHeight));
-  checkFontFamily = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(210, 'Font Family', viewWidth, viewHeight);
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(200, 'Export selected values:', viewWidth, viewHeight));
+  checkFontFamily = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldCheckbox"])(210, 'Font Family', viewWidth, viewHeight);
   view.addSubview(checkFontFamily);
-  checkFontSize = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(230, 'Font Size', viewWidth, viewHeight, true);
+  checkFontSize = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldCheckbox"])(230, 'Font Size', viewWidth, viewHeight, true);
   view.addSubview(checkFontSize);
-  checkFontWeight = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(250, 'Font Weight', viewWidth, viewHeight, true);
+  checkFontWeight = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldCheckbox"])(250, 'Font Weight', viewWidth, viewHeight, true);
   view.addSubview(checkFontWeight);
-  checkLineHeight = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(270, 'Line Height', viewWidth, viewHeight, true);
+  checkLineHeight = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldCheckbox"])(270, 'Line Height', viewWidth, viewHeight, true);
   view.addSubview(checkLineHeight);
-  checkLetterSpacing = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(290, 'Letter Spacing', viewWidth, viewHeight, true);
+  checkLetterSpacing = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldCheckbox"])(290, 'Letter Spacing', viewWidth, viewHeight, true);
   view.addSubview(checkLetterSpacing);
-  checkTextTransform = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(310, 'Text Transform', viewWidth, viewHeight, true);
+  checkTextTransform = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldCheckbox"])(310, 'Text Transform', viewWidth, viewHeight, true);
   view.addSubview(checkTextTransform);
-  checkColor = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_4__["fieldCheckbox"])(330, 'Color', viewWidth, viewHeight);
+  checkColor = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldCheckbox"])(330, 'Color', viewWidth, viewHeight);
   view.addSubview(checkColor);
   return alert.runModal();
 };
 /**
- * 
+ *
  * Export exportTextstyles
- * 
+ *
  */
 
 
 var exportTextstyles = function exportTextstyles(selectedLayers, type, units, naming) {
   var selectedCount = selectedLayers.length;
+  console.log(type);
   var fileTypes = NSArray.arrayWithArray([_lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype, nil]);
   var savePanel = NSSavePanel.savePanel(); //savePanel.setCanChooseDirectories(true)
   //savePanel.setCanCreateDirectories(true)
 
   savePanel.setAllowedFileTypes(fileTypes);
   savePanel.setNameFieldStringValue('textstyles.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
-  savePanel.setPrompt("Save Text Styles");
+  savePanel.setPrompt('Save Text Styles');
 
   if (savePanel.runModal() && selectedCount !== 0) {
     var texts = '';
 
-    if (type == 'JSON') {
+    if (type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.json) {
       texts = {};
-    } else if (type == 'JavaScript Object') {
+    } else if (type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.jsObject) {
       texts = 'const textStyles = {\n';
+    } else if (type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.es6Module) {
+      texts = 'export const textStyles = {\n';
     } else {
       texts = '';
     }
@@ -17544,7 +17587,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
       var textTransform = layer.style.textTransform;
       var textColor = layer.style.textColor.substr(0, 7); // JSON
 
-      if (type == 'JSON') {
+      if (type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.json) {
         texts[layerName] = {};
         if (checkFontFamily.stringValue() == 1) texts[layerName]['fontFamily'] = fontFamily;
         if (checkFontSize.stringValue() == 1) texts[layerName]['fontSize'] = fontSize;
@@ -17553,9 +17596,9 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
         if (checkLetterSpacing.stringValue() == 1) texts[layerName]['letterSpacing'] = letterSpacing;
         if (checkTextTransform.stringValue() == 1) texts[layerName]['textTransform'] = textTransform;
         if (checkColor.stringValue() == 1) texts[layerName]['color'] = textColor;
-      } else if (type == 'JavaScript Object') {
+      } else if (type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.jsObject || type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.es6Module) {
         // JS Object
-        texts = texts.concat('\t"' + layerName + '": {\n');
+        texts = type === _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.es6Module ? texts.concat('\t"' + layerName + '": {\n') : texts.concat('\t' + layerName + ': {\n');
         if (checkFontFamily.stringValue() == 1) texts = texts.concat('\t\tfontFamily: "' + fontFamily + '",\n');
         if (checkFontSize.stringValue() == 1) texts = texts.concat('\t\tfontSize: "' + fontSize + '",\n');
         if (checkFontWeight.stringValue() == 1) texts = texts.concat('\t\tfontWeight: ' + fontWeight + ',\n');
@@ -17564,7 +17607,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
         if (checkTextTransform.stringValue() == 1) texts = texts.concat('\t\ttextTransform: "' + textTransform + '",\n');
         if (checkColor.stringValue() == 1) texts = texts.concat('\t\tcolor: "' + textColor + '",\n');
         texts = texts.concat('\t},\n');
-      } else if (type == 'CSS') {
+      } else if (type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.css) {
         // CSS
         texts = texts.concat('.' + layerName + '{\n');
         if (checkFontFamily.stringValue() == 1) texts = texts.concat('\tfont-family: "' + fontFamily + '";\n');
@@ -17580,12 +17623,12 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
 
     var file = '';
 
-    if (type == 'JSON') {
+    if (type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.json) {
       var jsonObj = {
-        "textstyles": texts
+        textstyles: texts
       };
-      file = NSString.stringWithString(JSON.stringify(jsonObj, null, "\t"));
-    } else if (type == 'JavaScript Object') {
+      file = NSString.stringWithString(JSON.stringify(jsonObj, null, '\t'));
+    } else if (type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.jsObject || type == _lib_strings__WEBPACK_IMPORTED_MODULE_4__["default"].values.es6Module) {
       texts = texts.concat('}');
       file = NSString.stringWithString(texts);
     } else {
@@ -17598,9 +17641,9 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
   }
 };
 /**
- * 
+ *
  * Main
- * 
+ *
  */
 
 
@@ -17618,7 +17661,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, units, na
     var exportUnits = dropdownUnits.titleOfSelectedItem();
     var exportNaming = dropdownNames.indexOfSelectedItem();
 
-    if (dialog == "1000") {
+    if (dialog == '1000') {
       exportTextstyles(selectedLayers, exportType, exportUnits, exportNaming);
     }
   } else {

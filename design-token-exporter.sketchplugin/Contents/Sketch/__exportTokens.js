@@ -17527,13 +17527,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var dropdownFileType;
 /**
- * 
+ *
  * Dialog
- * 
+ *
  */
 
 var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["dialogAlert"])("Export Design Tokens", "Choose tokens file format. Layers naming format is type/category/name (e.g. Color/Background-Color/Primary-red)."); // Creating the view
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["dialogAlert"])('Export Design Tokens', 'Choose tokens file format. Layers naming format is type/category/name (e.g. Color/Background-Color/Primary-red).'); // Creating the view
 
   var viewWidth = 300;
   var viewHeight = 60;
@@ -17541,15 +17541,15 @@ var dialogBox = function dialogBox(selectedLayers) {
   alert.addAccessoryView(view); //Dropdown: File format
 
   view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
-  var names = ["YAML", "JSON"];
+  var names = ['YAML', 'JSON'];
   dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(45, names, viewWidth, viewHeight);
   view.addSubview(dropdownFileType);
   return alert.runModal();
 };
 /**
- * 
+ *
  * Export exportColors
- * 
+ *
  */
 
 
@@ -17566,7 +17566,7 @@ var exportTokens = function exportTokens(selectedLayers, type) {
         // Notice layer if it contains type/category/name
         var value = Object(_lib_tokenValue__WEBPACK_IMPORTED_MODULE_4__["default"])(layer);
 
-        if (value !== "") {
+        if (value !== '') {
           var tokenType = layerNameArr[0];
 
           var tokenCategory = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.kebabCase(layerNameArr[1]);
@@ -17574,9 +17574,9 @@ var exportTokens = function exportTokens(selectedLayers, type) {
           var tokenName = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.snakeCase(layerNameArr[2]);
 
           var newObj = {
-            "value": value,
-            "type": tokenType,
-            "category": tokenCategory
+            value: value,
+            type: tokenType,
+            category: tokenCategory
           };
           variables[tokenName] = newObj;
         }
@@ -17590,7 +17590,7 @@ var exportTokens = function exportTokens(selectedLayers, type) {
       var savePanel = NSSavePanel.savePanel();
       savePanel.setAllowedFileTypes(fileTypes);
       savePanel.setNameFieldStringValue('tokens.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
-      savePanel.setPrompt("Save Tokens");
+      savePanel.setPrompt('Save Tokens');
       savePanel.runModal();
       var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_3__["default"])(variables, type, 'props'));
       var file_path = savePanel.URL().path();
@@ -17600,9 +17600,9 @@ var exportTokens = function exportTokens(selectedLayers, type) {
   }
 };
 /**
- * 
+ *
  * Main
- * 
+ *
  */
 
 
@@ -17614,7 +17614,7 @@ var exportTokens = function exportTokens(selectedLayers, type) {
   var selectedCount = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.size(selected);
 
   if (selectedCount !== 0) {
-    if (selected[0].type === "Artboard") {
+    if (selected[0].type === 'Artboard') {
       // Select artboard layers
       selected = selected[0].layers;
     }
@@ -17624,7 +17624,7 @@ var exportTokens = function exportTokens(selectedLayers, type) {
     var dialog = dialogBox(selectedLayers);
     var exportType = dropdownFileType.titleOfSelectedItem();
 
-    if (dialog == "1000") {
+    if (dialog == '1000') {
       exportTokens(selectedLayers, exportType);
     }
   } else {
@@ -17651,13 +17651,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
 var dialogAlert = function dialogAlert(title) {
-  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Choose variables format.";
+  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Choose variables format.';
   var alert = COSAlertWindow.new();
-  alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+  alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed('icon.png').path()));
   alert.setMessageText(title);
   alert.setInformativeText(desc);
-  alert.addButtonWithTitle("Ok");
-  alert.addButtonWithTitle("Cancel");
+  alert.addButtonWithTitle('Ok');
+  alert.addButtonWithTitle('Cancel');
   return alert;
 };
 var fieldLabel = function fieldLabel(pos, title, viewWidth, viewHeight) {
@@ -17683,8 +17683,8 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
 
     var camelCase = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(sliceArr, '-'));
 
-    select.addItemWithTitle(kebabCase);
     select.addItemWithTitle(camelCase);
+    select.addItemWithTitle(kebabCase);
 
     if (sliceArr.length > 1) {
       lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(sliceArr, function (slice) {
@@ -17725,8 +17725,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _values__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./values */ "./src/lib/values.js");
-/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! json-to-pretty-yaml */ "./node_modules/json-to-pretty-yaml/index.js");
-/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./strings */ "./src/lib/strings.js");
+/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! json-to-pretty-yaml */ "./node_modules/json-to-pretty-yaml/index.js");
+/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -17734,17 +17736,19 @@ __webpack_require__.r(__webpack_exports__);
 var formatObject = function formatObject(obj, type, jsonTitle) {
   var string = '';
 
-  if (type == 'JSON') {
+  if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.json) {
     var jsonObj = {};
     jsonObj[lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle)] = obj;
-    string = JSON.stringify(jsonObj, null, "\t");
-  } else if (type == 'YAML') {
+    string = JSON.stringify(jsonObj, null, '\t');
+  } else if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.yaml) {
     var _jsonObj = {};
     _jsonObj[lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle)] = obj;
-    string = json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2___default.a.stringify(_jsonObj);
+    string = json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3___default.a.stringify(_jsonObj);
   } else {
-    if (type == 'JavaScript Object') {
-      string = "const " + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + " = {\n";
+    if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.jsObject) {
+      string = 'const ' + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + ' = {\n';
+    } else if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.es6Module) {
+      string = 'export const ' + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + ' = {\n';
     } else {
       string = _values__WEBPACK_IMPORTED_MODULE_1__["default"][type].lineStart;
     }
@@ -17778,22 +17782,50 @@ var hexAToRGBA = function hexAToRGBA(h) {
       a = 1;
 
   if (h.length == 5) {
-    r = "0x" + h[1] + h[1];
-    g = "0x" + h[2] + h[2];
-    b = "0x" + h[3] + h[3];
-    a = "0x" + h[4] + h[4];
+    r = '0x' + h[1] + h[1];
+    g = '0x' + h[2] + h[2];
+    b = '0x' + h[3] + h[3];
+    a = '0x' + h[4] + h[4];
   } else if (h.length == 9) {
-    r = "0x" + h[1] + h[2];
-    g = "0x" + h[3] + h[4];
-    b = "0x" + h[5] + h[6];
-    a = "0x" + h[7] + h[8];
+    r = '0x' + h[1] + h[2];
+    g = '0x' + h[3] + h[4];
+    b = '0x' + h[5] + h[6];
+    a = '0x' + h[7] + h[8];
   }
 
   a = +(a / 255).toFixed(2);
-  return "rgba(" + +r + "," + +g + "," + +b + "," + a + ")";
+  return 'rgba(' + +r + ',' + +g + ',' + +b + ',' + a + ')';
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (hexAToRGBA);
+
+/***/ }),
+
+/***/ "./src/lib/strings.js":
+/*!****************************!*\
+  !*** ./src/lib/strings.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var strings = {
+  values: {
+    jsObject: 'JavaScript Object',
+    jsVars: 'JavaScript Variables',
+    es6Module: 'ES6 Module',
+    scss: 'SCSS',
+    less: 'Less',
+    css: 'CSS',
+    json: 'JSON',
+    yaml: 'YAML',
+    hsl: 'HSL',
+    hex: 'HEX',
+    rgba: 'RGBA'
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (strings);
 
 /***/ }),
 
@@ -17817,7 +17849,7 @@ var tokenValue = function tokenValue(layer) {
 
   var tokenCategory = _.kebabCase(layerNameArr[1]);
 
-  if (layerType === "ShapePath") {
+  if (layerType === 'ShapePath') {
     // ShapeLayers + Category match
     if (_.indexOf(['spacing', 'space', 'spacer', 'sizing', 'size'], tokenCategory) !== -1) {
       // Get spacing
@@ -17826,7 +17858,7 @@ var tokenValue = function tokenValue(layer) {
       // Get color
       var _color = _.last(layer.style.fills).color;
 
-      value = _color.slice(-2) === "ff" ? _color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_color);
+      value = _color.slice(-2) === 'ff' ? _color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_color);
     } else if (tokenCategory === 'border-color') {
       // Get border color
       if (_.size(layer.style.borders) !== 0) {
@@ -17854,37 +17886,37 @@ var tokenValue = function tokenValue(layer) {
       // Get shadow
       var shadowArr = _.last(layer.style.shadows);
 
-      var x = shadowArr.x == 0 ? 0 : shadowArr.x + "px";
-      var y = shadowArr.y == 0 ? 0 : shadowArr.y + "px";
-      var blur = shadowArr.blur == 0 ? 0 : shadowArr.blur + "px";
-      var spread = shadowArr.spread == 0 ? 0 : shadowArr.spread + "px";
+      var x = shadowArr.x == 0 ? 0 : shadowArr.x + 'px';
+      var y = shadowArr.y == 0 ? 0 : shadowArr.y + 'px';
+      var blur = shadowArr.blur == 0 ? 0 : shadowArr.blur + 'px';
+      var spread = shadowArr.spread == 0 ? 0 : shadowArr.spread + 'px';
 
-      var _color2 = shadowArr.color.slice(-2) === "ff" ? shadowArr.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(shadowArr.color);
+      var _color2 = shadowArr.color.slice(-2) === 'ff' ? shadowArr.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(shadowArr.color);
 
-      value = x + " " + y + " " + blur + " " + spread + " " + _color2;
+      value = x + ' ' + y + ' ' + blur + ' ' + spread + ' ' + _color2;
     } else if (tokenCategory === 'inner-shadow') {
       // Get innershadow
       var _shadowArr = _.last(layer.style.innerShadows);
 
-      var _x = _shadowArr.x == 0 ? 0 : _shadowArr.x + "px";
+      var _x = _shadowArr.x == 0 ? 0 : _shadowArr.x + 'px';
 
-      var _y = _shadowArr.y == 0 ? 0 : _shadowArr.y + "px";
+      var _y = _shadowArr.y == 0 ? 0 : _shadowArr.y + 'px';
 
-      var _blur = _shadowArr.blur == 0 ? 0 : _shadowArr.blur + "px";
+      var _blur = _shadowArr.blur == 0 ? 0 : _shadowArr.blur + 'px';
 
-      var _spread = _shadowArr.spread == 0 ? 0 : _shadowArr.spread + "px";
+      var _spread = _shadowArr.spread == 0 ? 0 : _shadowArr.spread + 'px';
 
-      var _color3 = _shadowArr.color.slice(-2) === "ff" ? _shadowArr.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_shadowArr.color);
+      var _color3 = _shadowArr.color.slice(-2) === 'ff' ? _shadowArr.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_shadowArr.color);
 
-      value = "inset " + _x + " " + _y + " " + _blur + " " + _spread + " " + _color3;
+      value = 'inset ' + _x + ' ' + _y + ' ' + _blur + ' ' + _spread + ' ' + _color3;
     } else if (_.indexOf(['background-gradient', 'gradient'], tokenCategory) !== -1) {
       // Get gradient
       var gradient = layer.style.fills[0].gradient;
 
-      if (gradient.gradientType === "Radial") {
-        value = "radial-gradient(" + gradient.sketchObject.gradientStringWithMasterAlpha(1) + ")";
-      } else if (gradient.gradientType === "Linear") {
-        value = "linear-gradient(" + gradient.sketchObject.gradientStringWithMasterAlpha(1) + ")";
+      if (gradient.gradientType === 'Radial') {
+        value = 'radial-gradient(' + gradient.sketchObject.gradientStringWithMasterAlpha(1) + ')';
+      } else if (gradient.gradientType === 'Linear') {
+        value = 'linear-gradient(' + gradient.sketchObject.gradientStringWithMasterAlpha(1) + ')';
       }
     } else if (tokenCategory === 'border-style') {
       // Get border style
@@ -17892,9 +17924,9 @@ var tokenValue = function tokenValue(layer) {
 
       var borderColor = _border.color.substr(0, 7);
 
-      var borderThickness = _border.thickness + "px";
-      var borderStyle = _.isEmpty(layer.style.borderOptions.dashPattern) ? "solid" : "dashed";
-      value = borderThickness + " " + borderStyle + " " + borderColor;
+      var borderThickness = _border.thickness + 'px';
+      var borderStyle = _.isEmpty(layer.style.borderOptions.dashPattern) ? 'solid' : 'dashed';
+      value = borderThickness + ' ' + borderStyle + ' ' + borderColor;
     } else if (['opacity'].indexOf(tokenCategory) !== -1) {
       // Get opacity
       value = _.round(layer.style.opacity, 2);
@@ -17902,17 +17934,17 @@ var tokenValue = function tokenValue(layer) {
       // Token type color
       var _color4 = _.last(layer.style.fills).color;
 
-      var colorFormat = _color4.slice(-2) === "ff" ? _color4.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_color4);
+      var colorFormat = _color4.slice(-2) === 'ff' ? _color4.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_color4);
       value = colorFormat;
     }
-  } else if (layerType === "Text") {
+  } else if (layerType === 'Text') {
     // ShapeLayers + Category match
     if (tokenCategory === 'font-style') {
       value = layer.style.fontStyle;
     } else if (tokenCategory === 'font') {
-      if (tokenType === "...") {
+      if (tokenType === '...') {
         value = layer.style.fontFamily;
-      } else if (tokenType === "number") {
+      } else if (tokenType === 'number') {
         value = layer.style.fontWeight * 100;
       }
     } else if (tokenCategory === 'font-weight') {
@@ -17925,21 +17957,21 @@ var tokenValue = function tokenValue(layer) {
       value = layer.style.fontFamily;
     } else if (tokenCategory === 'text-color') {
       var color = layer.style.textColor;
-      value = color.slice(-2) === "ff" ? color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(color);
+      value = color.slice(-2) === 'ff' ? color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(color);
     } else if (tokenCategory === 'text-shadow') {
       var _shadowArr2 = layer.style.shadows[0];
 
-      var _x2 = _shadowArr2.x == 0 ? 0 : _shadowArr2.x + "px";
+      var _x2 = _shadowArr2.x == 0 ? 0 : _shadowArr2.x + 'px';
 
-      var _y2 = _shadowArr2.y == 0 ? 0 : _shadowArr2.y + "px";
+      var _y2 = _shadowArr2.y == 0 ? 0 : _shadowArr2.y + 'px';
 
-      var _blur2 = _shadowArr2.blur == 0 ? 0 : _shadowArr2.blur + "px";
+      var _blur2 = _shadowArr2.blur == 0 ? 0 : _shadowArr2.blur + 'px';
 
-      var _spread2 = _shadowArr2.spread == 0 ? 0 : _shadowArr2.spread + "px";
+      var _spread2 = _shadowArr2.spread == 0 ? 0 : _shadowArr2.spread + 'px';
 
-      var _color5 = _shadowArr2.color.slice(-2) === "ff" ? _shadowArr2.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_shadowArr2.color);
+      var _color5 = _shadowArr2.color.slice(-2) === 'ff' ? _shadowArr2.color.substr(0, 7) : Object(_hexAToRGBA__WEBPACK_IMPORTED_MODULE_0__["default"])(_shadowArr2.color);
 
-      value = _x2 + " " + _y2 + " " + _blur2 + " " + _spread2 + " " + _color5;
+      value = _x2 + ' ' + _y2 + ' ' + _blur2 + ' ' + _spread2 + ' ' + _color5;
     } else if (_.indexOf(['z-index', 'time', 'media-query'], tokenCategory) !== -1) {
       value = layer.text;
     }
@@ -17961,62 +17993,72 @@ var tokenValue = function tokenValue(layer) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./strings */ "./src/lib/strings.js");
+
 var values = {
-  'JavaScript Object': {
-    lineStart: "",
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.jsObject]: {
+    lineStart: '',
     prefix: "   '",
     diviner: "': '",
     postfix: "',\n",
-    lineEnd: "}",
-    filetype: "js"
+    lineEnd: '}',
+    filetype: 'js'
   },
-  'JavaScript Variables': {
-    lineStart: "",
-    prefix: "const ",
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.jsVars]: {
+    lineStart: '',
+    prefix: 'const ',
     diviner: " = '",
     postfix: "';\n",
-    lineEnd: "",
-    filetype: "js"
+    lineEnd: '',
+    filetype: 'js'
   },
-  'SCSS': {
-    lineStart: "",
-    prefix: "$",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "",
-    filetype: "scss"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.es6Module]: {
+    lineStart: '',
+    prefix: ' ',
+    diviner: ": '",
+    postfix: "',\n",
+    lineEnd: '}',
+    filetype: 'js'
   },
-  'Less': {
-    lineStart: "",
-    prefix: "@",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "",
-    filetype: "less"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.scss]: {
+    lineStart: '',
+    prefix: '$',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '',
+    filetype: 'SCSS'
   },
-  'CSS': {
-    lineStart: ":root {\n",
-    prefix: "   --",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "}",
-    filetype: "css"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.less]: {
+    lineStart: '',
+    prefix: '@',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '',
+    filetype: 'less'
   },
-  'JSON': {
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.css]: {
+    lineStart: ':root {\n',
+    prefix: '   --',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '}',
+    filetype: 'css'
+  },
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.json]: {
     lineStart: {},
-    prefix: "",
-    diviner: "",
-    postfix: "",
-    lineEnd: "",
-    filetype: "json"
+    prefix: '',
+    diviner: '',
+    postfix: '',
+    lineEnd: '',
+    filetype: 'json'
   },
-  'YAML': {
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.yaml]: {
     lineStart: {},
-    prefix: "",
-    diviner: "",
-    postfix: "",
-    lineEnd: "",
-    filetype: "yml"
+    prefix: '',
+    diviner: '',
+    postfix: '',
+    lineEnd: '',
+    filetype: 'yml'
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (values);

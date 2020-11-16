@@ -17519,13 +17519,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
 var dialogAlert = function dialogAlert(title) {
-  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Choose variables format.";
+  var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Choose variables format.';
   var alert = COSAlertWindow.new();
-  alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+  alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed('icon.png').path()));
   alert.setMessageText(title);
   alert.setInformativeText(desc);
-  alert.addButtonWithTitle("Ok");
-  alert.addButtonWithTitle("Cancel");
+  alert.addButtonWithTitle('Ok');
+  alert.addButtonWithTitle('Cancel');
   return alert;
 };
 var fieldLabel = function fieldLabel(pos, title, viewWidth, viewHeight) {
@@ -17551,8 +17551,8 @@ var fieldSelect = function fieldSelect(pos, values, viewWidth, viewHeight) {
 
     var camelCase = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(sliceArr, '-'));
 
-    select.addItemWithTitle(kebabCase);
     select.addItemWithTitle(camelCase);
+    select.addItemWithTitle(kebabCase);
 
     if (sliceArr.length > 1) {
       lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(sliceArr, function (slice) {
@@ -17593,8 +17593,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _values__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./values */ "./src/lib/values.js");
-/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! json-to-pretty-yaml */ "./node_modules/json-to-pretty-yaml/index.js");
-/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./strings */ "./src/lib/strings.js");
+/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! json-to-pretty-yaml */ "./node_modules/json-to-pretty-yaml/index.js");
+/* harmony import */ var json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -17602,17 +17604,19 @@ __webpack_require__.r(__webpack_exports__);
 var formatObject = function formatObject(obj, type, jsonTitle) {
   var string = '';
 
-  if (type == 'JSON') {
+  if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.json) {
     var jsonObj = {};
     jsonObj[lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle)] = obj;
-    string = JSON.stringify(jsonObj, null, "\t");
-  } else if (type == 'YAML') {
+    string = JSON.stringify(jsonObj, null, '\t');
+  } else if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.yaml) {
     var _jsonObj = {};
     _jsonObj[lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle)] = obj;
-    string = json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_2___default.a.stringify(_jsonObj);
+    string = json_to_pretty_yaml__WEBPACK_IMPORTED_MODULE_3___default.a.stringify(_jsonObj);
   } else {
-    if (type == 'JavaScript Object') {
-      string = "const " + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + " = {\n";
+    if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.jsObject) {
+      string = 'const ' + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + ' = {\n';
+    } else if (type == _strings__WEBPACK_IMPORTED_MODULE_2__["default"].values.es6Module) {
+      string = 'export const ' + lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(jsonTitle) + ' = {\n';
     } else {
       string = _values__WEBPACK_IMPORTED_MODULE_1__["default"][type].lineStart;
     }
@@ -17630,6 +17634,34 @@ var formatObject = function formatObject(obj, type, jsonTitle) {
 
 /***/ }),
 
+/***/ "./src/lib/strings.js":
+/*!****************************!*\
+  !*** ./src/lib/strings.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var strings = {
+  values: {
+    jsObject: 'JavaScript Object',
+    jsVars: 'JavaScript Variables',
+    es6Module: 'ES6 Module',
+    scss: 'SCSS',
+    less: 'Less',
+    css: 'CSS',
+    json: 'JSON',
+    yaml: 'YAML',
+    hsl: 'HSL',
+    hex: 'HEX',
+    rgba: 'RGBA'
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (strings);
+
+/***/ }),
+
 /***/ "./src/lib/values.js":
 /*!***************************!*\
   !*** ./src/lib/values.js ***!
@@ -17639,62 +17671,72 @@ var formatObject = function formatObject(obj, type, jsonTitle) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./strings */ "./src/lib/strings.js");
+
 var values = {
-  'JavaScript Object': {
-    lineStart: "",
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.jsObject]: {
+    lineStart: '',
     prefix: "   '",
     diviner: "': '",
     postfix: "',\n",
-    lineEnd: "}",
-    filetype: "js"
+    lineEnd: '}',
+    filetype: 'js'
   },
-  'JavaScript Variables': {
-    lineStart: "",
-    prefix: "const ",
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.jsVars]: {
+    lineStart: '',
+    prefix: 'const ',
     diviner: " = '",
     postfix: "';\n",
-    lineEnd: "",
-    filetype: "js"
+    lineEnd: '',
+    filetype: 'js'
   },
-  'SCSS': {
-    lineStart: "",
-    prefix: "$",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "",
-    filetype: "scss"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.es6Module]: {
+    lineStart: '',
+    prefix: ' ',
+    diviner: ": '",
+    postfix: "',\n",
+    lineEnd: '}',
+    filetype: 'js'
   },
-  'Less': {
-    lineStart: "",
-    prefix: "@",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "",
-    filetype: "less"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.scss]: {
+    lineStart: '',
+    prefix: '$',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '',
+    filetype: 'SCSS'
   },
-  'CSS': {
-    lineStart: ":root {\n",
-    prefix: "   --",
-    diviner: ": ",
-    postfix: ";\n",
-    lineEnd: "}",
-    filetype: "css"
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.less]: {
+    lineStart: '',
+    prefix: '@',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '',
+    filetype: 'less'
   },
-  'JSON': {
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.css]: {
+    lineStart: ':root {\n',
+    prefix: '   --',
+    diviner: ': ',
+    postfix: ';\n',
+    lineEnd: '}',
+    filetype: 'css'
+  },
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.json]: {
     lineStart: {},
-    prefix: "",
-    diviner: "",
-    postfix: "",
-    lineEnd: "",
-    filetype: "json"
+    prefix: '',
+    diviner: '',
+    postfix: '',
+    lineEnd: '',
+    filetype: 'json'
   },
-  'YAML': {
+  [_strings__WEBPACK_IMPORTED_MODULE_0__["default"].values.yaml]: {
     lineStart: {},
-    prefix: "",
-    diviner: "",
-    postfix: "",
-    lineEnd: "",
-    filetype: "yml"
+    prefix: '',
+    diviner: '',
+    postfix: '',
+    lineEnd: '',
+    filetype: 'yml'
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (values);
@@ -17718,9 +17760,9 @@ var varNaming = function varNaming(layer, naming) {
   var layerNameArr = layer.name.split('/');
   var layerName = '';
 
-  if (naming == 0) {
+  if (naming == 1) {
     layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.kebabCase(layerNameArr);
-  } else if (naming == 1) {
+  } else if (naming == 0) {
     layerName = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.camelCase(lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(layerNameArr, '-'));
   } else {
     var stringPosition = naming - 2;
@@ -17753,9 +17795,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_values__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/values */ "./src/lib/values.js");
-/* harmony import */ var _lib_formatObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/formatObject */ "./src/lib/formatObject.js");
-/* harmony import */ var _lib_varNaming__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/varNaming */ "./src/lib/varNaming.js");
-/* harmony import */ var _lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/dialogFields */ "./src/lib/dialogFields.js");
+/* harmony import */ var _lib_strings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/strings */ "./src/lib/strings.js");
+/* harmony import */ var _lib_formatObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/formatObject */ "./src/lib/formatObject.js");
+/* harmony import */ var _lib_varNaming__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/varNaming */ "./src/lib/varNaming.js");
+/* harmony import */ var _lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lib/dialogFields */ "./src/lib/dialogFields.js");
+
 
 
 
@@ -17767,43 +17811,43 @@ var dropdownFormat;
 var dropdownNames;
 var dropdownUnits;
 /**
- * 
+ *
  * Dialog
- * 
+ *
  */
 
 var dialogBox = function dialogBox(selectedLayers) {
-  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["dialogAlert"])("Export Spacing Variables"); // Creating the view
+  var alert = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["dialogAlert"])('Export Spacing Variables'); // Creating the view
 
   var viewWidth = 300;
   var viewHeight = 225;
   var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
   alert.addAccessoryView(view); //Dropdown: File format
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
-  var names = ["SCSS", "Less", "CSS", "JSON", "JavaScript Object", "JavaScript Variables"];
-  dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(45, names, viewWidth, viewHeight);
-  view.addSubview(dropdownFileType); //Dropdown: Dimension 
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldLabel"])(35, 'File format:', viewWidth, viewHeight));
+  var names = [_lib_strings__WEBPACK_IMPORTED_MODULE_3__["default"].values.es6Module, _lib_strings__WEBPACK_IMPORTED_MODULE_3__["default"].values.scss, _lib_strings__WEBPACK_IMPORTED_MODULE_3__["default"].values.less, _lib_strings__WEBPACK_IMPORTED_MODULE_3__["default"].values.css, _lib_strings__WEBPACK_IMPORTED_MODULE_3__["default"].values.json, _lib_strings__WEBPACK_IMPORTED_MODULE_3__["default"].values.jsObject, _lib_strings__WEBPACK_IMPORTED_MODULE_3__["default"].values.jsVars];
+  dropdownFileType = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldSelect"])(45, names, viewWidth, viewHeight);
+  view.addSubview(dropdownFileType); //Dropdown: Dimension
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(90, 'Dimension:', viewWidth, viewHeight));
-  var types = ["Width", "Height"];
-  dropdownFormat = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(100, types, viewWidth, viewHeight);
-  view.addSubview(dropdownFormat); //Dropdown: Units 
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldLabel"])(90, 'Dimension:', viewWidth, viewHeight));
+  var types = ['Width', 'Height'];
+  dropdownFormat = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldSelect"])(100, types, viewWidth, viewHeight);
+  view.addSubview(dropdownFormat); //Dropdown: Units
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(145, 'Units:', viewWidth, viewHeight));
-  var units = ["Absolute (px)", "Relative (rem)"];
-  dropdownUnits = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(155, units, viewWidth, viewHeight);
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldLabel"])(145, 'Units:', viewWidth, viewHeight));
+  var units = ['Absolute (px)', 'Relative (rem)'];
+  dropdownUnits = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldSelect"])(155, units, viewWidth, viewHeight);
   view.addSubview(dropdownUnits); //Dropdown: Naming
 
-  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldLabel"])(200, 'Naming:', viewWidth, viewHeight));
-  dropdownNames = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_5__["fieldSelect"])(210, selectedLayers, viewWidth, viewHeight, true);
+  view.addSubview(Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldLabel"])(200, 'Naming:', viewWidth, viewHeight));
+  dropdownNames = Object(_lib_dialogFields__WEBPACK_IMPORTED_MODULE_6__["fieldSelect"])(210, selectedLayers, viewWidth, viewHeight, true);
   view.addSubview(dropdownNames);
   return alert.runModal();
 };
 /**
- * 
+ *
  * Export exportTextstyles
- * 
+ *
  */
 
 
@@ -17815,28 +17859,28 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, format, n
 
   savePanel.setAllowedFileTypes(fileTypes);
   savePanel.setNameFieldStringValue('spacing.' + _lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype);
-  savePanel.setPrompt("Save Spacing Variables");
+  savePanel.setPrompt('Save Spacing Variables');
 
   if (savePanel.runModal() && selectedCount !== 0) {
     var variables = {};
 
     lodash__WEBPACK_IMPORTED_MODULE_1___default.a.forEach(selectedLayers, function (layer) {
-      var layerName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_4__["default"])(layer, naming);
+      var layerName = Object(_lib_varNaming__WEBPACK_IMPORTED_MODULE_5__["default"])(layer, naming);
       var side = format == 'Width' ? layer.frame.width : layer.frame.height;
       var space = units == 'Absolute (px)' ? side + 'px' : side / 16 + 'rem';
       variables[layerName] = space;
     });
 
-    var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_3__["default"])(variables, type, 'spacing'));
+    var file = NSString.stringWithString(Object(_lib_formatObject__WEBPACK_IMPORTED_MODULE_4__["default"])(variables, type, 'spacing'));
     var file_path = savePanel.URL().path();
     file.writeToFile_atomically_encoding_error(file_path, true, NSUTF8StringEncoding, null);
     sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message('Spacing Variables Exported!');
   }
 };
 /**
- * 
+ *
  * Main
- * 
+ *
  */
 
 
@@ -17855,7 +17899,7 @@ var exportTextstyles = function exportTextstyles(selectedLayers, type, format, n
     var exportNaming = dropdownNames.indexOfSelectedItem();
     var exportUnits = dropdownUnits.titleOfSelectedItem();
 
-    if (dialog == "1000") {
+    if (dialog == '1000') {
       exportTextstyles(selectedLayers, exportType, exportFormat, exportNaming, exportUnits);
     }
   } else {
