@@ -42,6 +42,12 @@
             "identifier": "tokens.styles",
             "script": "./textObjects.js",
             "description": "Export selected layers"
+        },
+        {
+            "name": "Export SVG",
+            "identifier": "tokens.svg",
+            "script": "./svgTokens.js",
+            "description": "Export selected layers"
         }
     ],
     "menu": {
@@ -53,6 +59,7 @@
             "tokens.text",
             "tokens.spacing",
             "tokens.radii",
+            "tokens.svg",
             "-",
             "tokens.styles"
         ]

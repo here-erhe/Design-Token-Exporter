@@ -143,7 +143,6 @@ const dialogBox = (selectedLayers) => {
  */
 const exportTextstyles = (selectedLayers, type, units, naming) => {
     const selectedCount = selectedLayers.length;
-    console.log(type);
 
     let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
 

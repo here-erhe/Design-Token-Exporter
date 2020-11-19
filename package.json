@@ -1,40 +1,40 @@
 {
-  "name": "design-token-exporter",
-  "description": "Simple Design Token Exporter",
-  "author": "Herkko Huttunen",
-  "version": "1.0.1",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/here-erhe/Design-Token-Exporter"
-  },
-  "engines": {
-    "sketch": ">=51.0"
-  },
-  "skpm": {
-    "name": "Design Token Exporter",
-    "manifest": "src/manifest.json",
-    "main": "design-token-exporter.sketchplugin",
-    "assets": [
-      "assets/**/*"
-    ]
-  },
-  "scripts": {
-    "build": "skpm-build",
-    "watch": "skpm-build --watch",
-    "start": "skpm-build --watch --run",
-    "postinstall": "npm run build && skpm-link"
-  },
-  "devDependencies": {
-    "@skpm/builder": "^0.7.5",
-    "babel-eslint": "10.1.0",
-    "eslint": "7.13.0",
-    "eslint-config-prettier": "6.15.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "prettier": "2.1.2"
-  },
-  "dependencies": {
-    "json-to-pretty-yaml": "^1.2.2",
-    "lodash": "^4.17.15"
-  }
+    "name": "design-token-exporter",
+    "description": "Simple Design Token Exporter",
+    "author": "Herkko Huttunen",
+    "version": "1.0.1",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/here-erhe/Design-Token-Exporter"
+    },
+    "engines": {
+        "sketch": ">=51.0"
+    },
+    "skpm": {
+        "name": "Design Token Exporter",
+        "manifest": "src/manifest.json",
+        "main": "design-token-exporter.sketchplugin",
+        "assets": [
+            "assets/**/*"
+        ]
+    },
+    "scripts": {
+        "build": "skpm-build",
+        "watch": "skpm-build --watch",
+        "start": "skpm-build --watch --run",
+        "postinstall": "npm run build && skpm-link"
+    },
+    "devDependencies": {
+        "@skpm/builder": "^0.7.5",
+        "babel-eslint": "10.1.0",
+        "eslint": "7.13.0",
+        "eslint-config-prettier": "6.15.0",
+        "eslint-plugin-prettier": "3.1.4",
+        "prettier": "2.1.2"
+    },
+    "dependencies": {
+        "json-to-pretty-yaml": "^1.2.2",
+        "lodash": "^4.17.15"
+    }
 }

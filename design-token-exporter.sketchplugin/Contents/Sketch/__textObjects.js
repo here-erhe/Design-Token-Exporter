@@ -17555,7 +17555,6 @@ var dialogBox = function dialogBox(selectedLayers) {
 
 var exportTextstyles = function exportTextstyles(selectedLayers, type, units, naming) {
   var selectedCount = selectedLayers.length;
-  console.log(type);
   var fileTypes = NSArray.arrayWithArray([_lib_values__WEBPACK_IMPORTED_MODULE_2__["default"][type].filetype, nil]);
   var savePanel = NSSavePanel.savePanel(); //savePanel.setCanChooseDirectories(true)
   //savePanel.setCanCreateDirectories(true)
