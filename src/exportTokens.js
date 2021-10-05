@@ -96,7 +96,7 @@ const exportTokens = (selectedLayers, type) => {
     }else{
 
 
-      let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
+      let fileTypes = NSArray.arrayWithArray([values[type].filetype]);
       let savePanel = NSSavePanel.savePanel()
 
       savePanel.setAllowedFileTypes(fileTypes)

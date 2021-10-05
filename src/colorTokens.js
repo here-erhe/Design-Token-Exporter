@@ -93,7 +93,7 @@ const exportColors = (selectedLayers, type, format, naming) => {
     }else{
 
 
-      let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
+      let fileTypes = NSArray.arrayWithArray([values[type].filetype]);
       let savePanel = NSSavePanel.savePanel()
 
       

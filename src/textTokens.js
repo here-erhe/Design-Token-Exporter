@@ -75,7 +75,7 @@ const exportTextstyles = (selectedLayers, type, format, naming, units) => {
 
   const selectedCount = selectedLayers.length;
 
-  let fileTypes = NSArray.arrayWithArray([values[type].filetype, nil]);
+  let fileTypes = NSArray.arrayWithArray([values[type].filetype]);
 
   let savePanel = NSSavePanel.savePanel()
   //savePanel.setCanChooseDirectories(true)
