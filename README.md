@@ -1,6 +1,8 @@
 ![alt text](images/gitcover.jpg)
 
-# Design Token Exporter
+# This project is not maintained anymore
+
+## Design Token Exporter
 
 **Export Design Tokens from your Sketch project.**
 
@@ -216,15 +218,6 @@ const textStyles = {
 }
 ```
 
-## How to install 
-
-- Download the [Zip-folder](https://github.com/here-erhe/Design-Token-Exporter/releases/latest). Extract zip and double-click the `design-token-exporter.sketchplugin`
-
-## Contact/Feedback
-
-Mail [herkko@erhe.fi](mailto:herkko@erhe.fi)
-
-Twitter [@here_erhe](https://twitter.com/here_erhe)
 
 ## License
 
